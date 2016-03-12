@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PhpM3u8 package.
+ *
+ * (c) Chrisyue <http://chrisyue.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Chrisyue\PhpM3u8;
 
 use Chrisyue\PhpM3u8\Loader\LoaderInterface;
@@ -21,7 +30,7 @@ class Parser
     public function parseFromUri($uri)
     {
         if (null === $this->loader) {
-            throw new \Exception('You should set an m3u8 loader first');
+            throw new \BadMethodCallException('You should set an m3u8 loader first');
         }
 
         return $this->parse($this->loader->load($uri));
@@ -52,7 +61,7 @@ class Parser
 
     private function content2Data($content)
     {
-        $data = [];
+        $data = array();
 
         $mediaSequence = 0;
 
@@ -64,12 +73,12 @@ class Parser
             }
 
             if (preg_match('/^#EXT-X-TARGETDURATION:(\d+)/', $line, $matches)) {
-                $data['targetDuration'] = $matches[1];
+                $data['targetDuration'] = +$matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-MEDIA-SEQUENCE:(\d+)/', $line, $matches)) {
-                $data['mediaSequence'] = $matches[1];
+                $data['mediaSequence'] = +$matches[1];
                 continue;
             }
 
@@ -78,7 +87,7 @@ class Parser
             }
 
             if (preg_match('/^#EXTINF:(.+),/', $line, $matches)) {
-                $data['playlist'][$mediaSequence]['duration'] = $matches[1];
+                $data['playlist'][$mediaSequence]['duration'] = +$matches[1];
                 continue;
             }
 
