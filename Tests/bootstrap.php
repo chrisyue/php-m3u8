@@ -9,9 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Loader;
+require sprintf('%s/../vendor/autoload.php', __DIR__);
 
-interface LoaderInterface
-{
-    public function load($uri);
-}
+require sprintf('%s/DummyM3u8Factory.php', __DIR__);
