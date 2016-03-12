@@ -1,12 +1,21 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->exclude('vendor')
-    ->in(__DIR__)
-;
+require_once './vendor/autoload.php';
 
-return Symfony\CS\Config\Config::create()
+use SLLH\StyleCIBridge\ConfigBridge;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+
+$header = <<<EOF
+This file is part of the PhpM3u8 package.
+
+(c) Chrisyue <http://chrisyue.com/>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+EOF;
+
+HeaderCommentFixer::setHeader($header);
+
+return ConfigBridge::create()
     ->setUsingCache(true)
-    ->fixers(['-phpdoc_short_description', 'ordered_use'])
-    ->finder($finder)
 ;
