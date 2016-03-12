@@ -1,16 +1,25 @@
 <?php
 
+/*
+ * This file is part of the PhpM3u8 package.
+ *
+ * (c) Chrisyue <http://chrisyue.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Chrisyue\PhpM3u8\M3u8;
 
 use Chrisyue\PhpM3u8\M3u8\MediaSegment\MediaSegment;
 
 class Playlist implements \Iterator
 {
-    private $mediaSegments = [];
+    private $mediaSegments = array();
     private $age;
     private $position = 0;
 
-    public function __construct(array $mediaSegments = [], $age = null)
+    public function __construct(array $mediaSegments = array(), $age = null)
     {
         $this->mediaSegments = $mediaSegments;
         $this->age = $age;
