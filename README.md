@@ -6,6 +6,7 @@ v1.0.0
 M3u8 file parser / dumper
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a/big.png)](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a)
+
 [![Latest Stable Version](https://poser.pugx.org/chrisyue/php-m3u8/v/stable)](https://packagist.org/packages/chrisyue/php-m3u8)
 [![License](https://poser.pugx.org/chrisyue/php-m3u8/license)](https://packagist.org/packages/chrisyue/php-m3u8)
 [![Build Status](https://travis-ci.org/chrisyue/php-m3u8.svg?branch=develop)](https://travis-ci.org/chrisyue/php-m3u8)
@@ -46,7 +47,7 @@ Fortunately you don't really need to write a `MyLoader` class because there is a
 
 supposing you are using psr6 compatible cache utils like Symfony cache component:
 
-```
+```php
 $cachePool = new \Symfony\Component\Cache\Adapter\ApcuAdapter();
 $loader = new \Chrisyue\PhpM3u8\CachableLoader($cachePool);
 
@@ -73,13 +74,13 @@ echo $dumper->dump($m3u8);
 
 Again, you don't need to write a `MyMediaSegmentUriProcessor` if you only want to return the origin path of media segment:
 
-```
+```php
 $dumper = new \Chrisyue\PhpM3u8\Dumper(new Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\OriginUriProcessor());
 echo $dumper->dump($m3u8);
 ```
 
 and there is also a `CdnUriProcessor` which can be used when you want to replace/add the host with/to the path of media segment:
-```
-$dumper = new \Chrisyue\PhpM3u8\Dumper(new Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\CdnUriProcessor());
+```php
+$dumper = new \Chrisyue\PhpM3u8\Dumper(new Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\CdnUriProcessor('http://cdn.example.com'));
 echo $dumper->dump($m3u8);
 ```
