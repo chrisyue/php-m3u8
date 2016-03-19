@@ -13,18 +13,14 @@ namespace Chrisyue\PhpM3u8\Loader;
 
 class CachableLoader extends AbstractCachableLoader
 {
+    private $loader;
+
     protected function loadContent($uri)
     {
-        $content = file_get_contents($uri, null, stream_context_create(array(
-            'http' => array(
-                'timeout' => 10,
-            ),
-        )));
-
-        if (false === $content) {
-            throw new \Exception(sprintf('The m3u8 uri %s cannot be loaded', $uri));
+        if (null === $this->loader) {
+            $this->loader = new Loader();
         }
 
-        return $content;
+        return $this->loader->load($uri);
     }
 }
