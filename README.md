@@ -58,29 +58,6 @@ $m3u8 = $parser->parseFromUri($uri);
 ### dumper
 
 ```php
-class MyMediaSegmentUriProcessor implements MediaSegmentUriProcessorInterface
-{
-    public function process(\Chrisyue\PhpM3u8\MediaSegment $mediaSegment)
-    {
-        return $mediaSegment->getUri();
-        // or you'd like to make the uri absolute path
-        // return sprintf('http://example.com/%s', $mediaSegment->getUri());
-    }
-}
-
-$dumper = new \Chrisyue\PhpM3u8\Dumper(new MyMediaSegmentUriProcessor());
-echo $dumper->dump($m3u8);
-```
-
-Again, you don't need to write a `MyMediaSegmentUriProcessor` if you only want to return the origin path of media segment:
-
-```php
-$dumper = new \Chrisyue\PhpM3u8\Dumper(new Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\OriginUriProcessor());
-echo $dumper->dump($m3u8);
-```
-
-and there is also a `CdnUriProcessor` which can be used when you want to replace/add the host with/to the path of media segment:
-```php
-$dumper = new \Chrisyue\PhpM3u8\Dumper(new Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\CdnUriProcessor('http://cdn.example.com'));
+$dumper = new \Chrisyue\PhpM3u8\Dumper();
 echo $dumper->dump($m3u8);
 ```
