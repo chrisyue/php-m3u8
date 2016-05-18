@@ -12,17 +12,9 @@
 namespace Chrisyue\PhpM3u8;
 
 use Chrisyue\PhpM3u8\M3u8\M3u8;
-use Chrisyue\PhpM3u8\M3u8\MediaSegment\UriProcessor\UriProcessorInterface;
 
 class Dumper
 {
-    private $mediaSegmentUriProcessor;
-
-    public function __construct(UriProcessorInterface $processor)
-    {
-        $this->mediaSegmentUriProcessor = $processor;
-    }
-
     public function dump(M3u8 $m3u8)
     {
         $lines = array(
@@ -39,15 +31,13 @@ class Dumper
             $lines[] = sprintf('#EXT-X-DISCONTINUITY-SEQUENCE:%s', $m3u8->getDiscontinuitySequence());
         }
 
-        $lines[] = ''; // separator between m3u8 info and playlist
-
         foreach ($m3u8->getPlaylist() as $mediaSegment) {
             if ($mediaSegment->isDiscontinuity()) {
                 $lines[] = '#EXT-X-DISCONTINUITY';
             }
 
             $lines[] = $m3u8->getVersion() < 3 ? sprintf('#EXTINF:%d,', round($mediaSegment->getDuration())) : sprintf('#EXTINF:%.3f,', $mediaSegment->getDuration());
-            $lines[] = $this->mediaSegmentUriProcessor->process($mediaSegment);
+            $lines[] = $mediaSegment->getUri();
         }
 
         return implode(PHP_EOL, $lines);
