@@ -51,12 +51,14 @@ class Parser
                 $row['uri'],
                 $row['duration'],
                 $mediaSequence + $index,
+				$row['name'],
+				$row['group'],
                 !empty($row['isDiscontinuity'])
             );
             $playlist->add($mediaSegment);
         }
 
-        return new M3u8($playlist, $version, $targetDuration);
+        return new M3u8($playlist, $version, 0);
     }
 
     private function content2Data($content)
@@ -65,7 +67,7 @@ class Parser
 
         $mediaSequence = 0;
 
-        $lines = explode("\n", $content);
+        $lines = explode("\r\n", $content);
         foreach ($lines as $line) {
             if (preg_match('/^#EXT-X-VERSION:(\d+)/', $line, $matches)) {
                 $data['version'] = $matches[1];
@@ -86,8 +88,14 @@ class Parser
                 $data['playlist'][$mediaSequence]['isDiscontinuity'] = true;
             }
 
-            if (preg_match('/^#EXTINF:(.+),/', $line, $matches)) {
+            if (preg_match('/^#EXTINF:(\d+),(.+)/', $line, $matches)) {
                 $data['playlist'][$mediaSequence]['duration'] = +$matches[1];
+                $data['playlist'][$mediaSequence]['name'] = $matches[2];
+                continue;
+            }
+
+            if (preg_match('/^#EXTGRP:(.+)/', $line, $matches)) {
+                $data['playlist'][$mediaSequence]['group'] = $matches[1];
                 continue;
             }
 
