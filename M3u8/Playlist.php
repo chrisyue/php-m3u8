@@ -57,6 +57,10 @@ class Playlist implements \Iterator
         return $this;
     }
 
+	public function getItem($position) {
+		return isset($this->mediaSegments[$position]) ? $this->mediaSegments[$position] : NULL;
+	}
+
     public function getFirst()
     {
         $first = reset($this->mediaSegments);
