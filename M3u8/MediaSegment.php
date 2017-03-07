@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\M3u8\MediaSegment;
+namespace Chrisyue\PhpM3u8\M3u8;
 
-class MediaSegment implements MediaSegmentInterface
+class MediaSegment
 {
     protected $uri;
     protected $duration;

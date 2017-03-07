@@ -11,9 +11,7 @@
 
 namespace Chrisyue\PhpM3u8\M3u8;
 
-use Chrisyue\PhpM3u8\M3u8\MediaSegment\MediaSegment;
-
-class Playlist implements \Iterator
+class Playlist implements \Iterator, \ArrayAccess
 {
     private $mediaSegments = array();
     private $age;
@@ -48,6 +46,36 @@ class Playlist implements \Iterator
     public function valid()
     {
         return isset($this->mediaSegments[$this->position]);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        if (!$value instanceof MediaSegment) {
+            throw new \InvalidArgumentException('$value should be type of Chrisyue\PhpM3u8\M3u8\MediaSegment\MediaSegment');
+        }
+
+        if (is_null($offset)) {
+            $this->add($value);
+
+            return;
+        }
+
+        $this->mediaSegments[$offset] = $value;
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->mediaSegments[$offset];
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->mediaSegments[$offset]);
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->mediaSegments[$offset]);
     }
 
     public function add(MediaSegment $mediaSegment)

@@ -12,6 +12,7 @@
 namespace Chrisyue\PhpM3u8;
 
 use Chrisyue\PhpM3u8\M3u8\M3u8;
+use Chrisyue\PhpM3u8\M3u8\MediaSegment;
 
 class Dumper
 {
@@ -36,10 +37,19 @@ class Dumper
                 $lines[] = '#EXT-X-DISCONTINUITY';
             }
 
-            $lines[] = $m3u8->getVersion() < 3 ? sprintf('#EXTINF:%d,', round($mediaSegment->getDuration())) : sprintf('#EXTINF:%.3f,', $mediaSegment->getDuration());
+            $lines[] = self::createExtinfLine($m3u8->getVersion(), $mediaSegment);
             $lines[] = $mediaSegment->getUri();
         }
 
         return implode(PHP_EOL, $lines);
+    }
+
+    private static function createExtinfLine($m3u8Version, MediaSegment $mediaSegment)
+    {
+        if ($m3u8Version < 3) {
+            return sprintf('#EXTINF:%d,%s', round($mediaSegment->getDuration()), $mediaSegment->getTitle());
+        }
+
+        return sprintf('#EXTINF:%.3f,%s', $mediaSegment->getDuration(), $mediaSegment->getTitle());
     }
 }

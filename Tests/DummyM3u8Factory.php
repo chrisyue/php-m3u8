@@ -12,7 +12,7 @@
 namespace Tests;
 
 use Chrisyue\PhpM3u8\M3u8\M3u8;
-use Chrisyue\PhpM3u8\M3u8\MediaSegment\MediaSegment;
+use Chrisyue\PhpM3u8\M3u8\MediaSegment;
 use Chrisyue\PhpM3u8\M3u8\Playlist;
 
 class DummyM3u8Factory
@@ -20,7 +20,7 @@ class DummyM3u8Factory
     public static function createM3u8($version = 3)
     {
         $playlist = new Playlist(array(
-            new MediaSegment('stream12.ts', 5, 12),
+            new MediaSegment('stream12.ts', 5, 12, false, 'title'),
             new MediaSegment('stream13.ts', 4, 13),
             new MediaSegment('stream14.ts', 3, 14),
             new MediaSegment('stream15.ts', 6, 15),
@@ -37,7 +37,7 @@ class DummyM3u8Factory
 #EXT-X-VERSION:2
 #EXT-X-TARGETDURATION:5
 #EXT-X-MEDIA-SEQUENCE:12
-#EXTINF:5,
+#EXTINF:5,title
 stream12.ts
 #EXTINF:4,
 stream13.ts
@@ -53,7 +53,7 @@ M3U8;
 #EXT-X-VERSION:3
 #EXT-X-TARGETDURATION:5
 #EXT-X-MEDIA-SEQUENCE:12
-#EXTINF:5.000,
+#EXTINF:5.000,title
 stream12.ts
 #EXTINF:4.000,
 stream13.ts

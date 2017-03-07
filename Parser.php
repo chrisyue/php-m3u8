@@ -13,7 +13,7 @@ namespace Chrisyue\PhpM3u8;
 
 use Chrisyue\PhpM3u8\Loader\LoaderInterface;
 use Chrisyue\PhpM3u8\M3u8\M3u8;
-use Chrisyue\PhpM3u8\M3u8\MediaSegment\MediaSegment;
+use Chrisyue\PhpM3u8\M3u8\MediaSegment;
 use Chrisyue\PhpM3u8\M3u8\Playlist;
 
 class Parser
@@ -71,6 +71,8 @@ class Parser
 
         $lines = explode("\n", $content);
         foreach ($lines as $line) {
+            $line = trim($line);
+
             if (preg_match('/^#EXT-X-VERSION:(\d+)/', $line, $matches)) {
                 $data['version'] = $matches[1];
                 continue;

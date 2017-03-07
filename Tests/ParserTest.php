@@ -25,7 +25,7 @@ class ParserTest extends TestCase
     }
 
     /**
-     * @expectedException BadMethodCallException
+     * @expectedException \BadMethodCallException
      */
     public function testParseFromUriWithoutSetLoader()
     {
