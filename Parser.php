@@ -40,23 +40,27 @@ class Parser
     {
         $data = $this->content2Data($content);
 
-        $version = 3;
-        $mediaSequence = 0;
+        if (empty($data['version'])) {
+            $data['version'] = 3;
+        }
 
-        extract($data); // to $version, $mediaSequence, $targetDuration
+        if (empty($data['mediaSequence'])) {
+            $data['mediaSequence'] = 0;
+        }
 
         $playlist = new Playlist();
         foreach ($data['playlist'] as $index => $row) {
             $mediaSegment = new MediaSegment(
                 $row['uri'],
                 $row['duration'],
-                $mediaSequence + $index,
-                !empty($row['isDiscontinuity'])
+                $data['mediaSequence'] + $index,
+                !empty($row['isDiscontinuity']),
+                empty($row['title']) ? null : $row['title']
             );
             $playlist->add($mediaSegment);
         }
 
-        return new M3u8($playlist, $version, $targetDuration);
+        return new M3u8($playlist, $data['version'], $data['targetDuration']);
     }
 
     private function content2Data($content)
@@ -84,10 +88,16 @@ class Parser
 
             if (preg_match('/^#EXT-X-DISCONTINUITY/', $line)) {
                 $data['playlist'][$mediaSequence]['isDiscontinuity'] = true;
+                continue;
             }
 
-            if (preg_match('/^#EXTINF:(.+),/', $line, $matches)) {
-                $data['playlist'][$mediaSequence]['duration'] = +$matches[1];
+            if (preg_match('/^#EXTINF:(.+),(.*)$/', $line, $matches)) {
+                $data['playlist'][$mediaSequence]['duration'] = $matches[1];
+
+                if (isset($matches[2])) {
+                    $data['playlist'][$mediaSequence]['title'] = $matches[2];
+                }
+
                 continue;
             }
 

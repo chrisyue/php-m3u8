@@ -12,8 +12,9 @@
 namespace Tests;
 
 use Chrisyue\PhpM3u8\Parser;
+use PHPUnit\Framework\TestCase;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     public function testParse()
     {

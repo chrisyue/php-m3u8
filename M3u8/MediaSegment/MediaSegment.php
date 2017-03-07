@@ -17,13 +17,15 @@ class MediaSegment implements MediaSegmentInterface
     protected $duration;
     protected $sequence;
     protected $isDiscontinuity;
+    protected $title;
 
-    public function __construct($uri, $duration, $sequence, $isDiscontinuity = false)
+    public function __construct($uri, $duration, $sequence, $isDiscontinuity = false, $title = null)
     {
         $this->uri = $uri;
         $this->duration = $duration;
         $this->sequence = $sequence;
         $this->isDiscontinuity = $isDiscontinuity;
+        $this->title = $title;
     }
 
     public function getUri()
@@ -44,5 +46,10 @@ class MediaSegment implements MediaSegmentInterface
     public function isDiscontinuity()
     {
         return $this->isDiscontinuity;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

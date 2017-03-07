@@ -20,4 +20,6 @@ interface MediaSegmentInterface
     public function getSequence();
 
     public function isDiscontinuity();
+
+    public function getTitle();
 }
