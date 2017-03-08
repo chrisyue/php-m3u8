@@ -1,7 +1,5 @@
-PHP M3u8
+PHP M3u8 
 ========
-
-v1.3.0
 
 M3u8 file parser / dumper
 
@@ -16,6 +14,7 @@ M3u8 file parser / dumper
 
 Installation
 ------------
+
 
 ```
 $ composer require 'chrisyue/php-m3u8'
@@ -58,7 +57,7 @@ $parser->setLoader($loader);
 $m3u8 = $parser->parseFromUri($uri);
 ```
 
-### dumper
+### Dumper
 
 ```php
 $dumper = new \Chrisyue\PhpM3u8\Dumper();
