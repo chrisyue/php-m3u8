@@ -1,7 +1,7 @@
 PHP M3u8
 ========
 
-v1.2.0
+v1.3.0
 
 M3u8 file parser / dumper
 
