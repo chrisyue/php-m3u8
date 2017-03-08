@@ -19,8 +19,9 @@ function file_get_contents($uri)
 namespace Tests\Loader;
 
 use Chrisyue\PhpM3u8\Loader\CachableLoader;
+use PHPUnit\Framework\TestCase;
 
-class CachableLoaderTest extends \PHPUnit_Framework_TestCase
+class CachableLoaderTest extends TestCase
 {
     public function testLoadWithoutCache()
     {

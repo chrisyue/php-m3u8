@@ -12,8 +12,9 @@
 namespace Tests;
 
 use Chrisyue\PhpM3u8\Dumper;
+use PHPUnit\Framework\TestCase;
 
-class DumperTest extends \PHPUnit_Framework_TestCase
+class DumperTest extends TestCase
 {
     public function testDump()
     {
