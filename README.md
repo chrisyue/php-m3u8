@@ -24,13 +24,16 @@ $ composer require 'chrisyue/php-m3u8'
 Usage
 -----
 
-### parser
+### Parser
 
 ```php
 $parser = new \Chrisyue\PhpM3u8\Parser();
 $m3u8 = $parser->parse($m3u8Content);
+```
 
-// or with loader
+or with loader
+
+```php
 class MyLoader implements LoaderInterface
 {
     public function load($uri)
