@@ -26,7 +26,7 @@ class DummyM3u8Factory
             new MediaSegment('stream15.ts', 6, 15),
         ));
 
-        return new M3u8($playlist, $version, 5);
+        return new M3u8($playlist, $version, 6);
     }
 
     public static function createM3u8Content($version = 3)
@@ -35,7 +35,7 @@ class DummyM3u8Factory
             return <<<'M3U8'
 #EXTM3U
 #EXT-X-VERSION:2
-#EXT-X-TARGETDURATION:5
+#EXT-X-TARGETDURATION:6
 #EXT-X-MEDIA-SEQUENCE:12
 #EXTINF:5,title
 stream12.ts
@@ -51,7 +51,7 @@ M3U8;
         return <<<'M3U8'
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-TARGETDURATION:5
+#EXT-X-TARGETDURATION:6
 #EXT-X-MEDIA-SEQUENCE:12
 #EXTINF:5.000,title
 stream12.ts
