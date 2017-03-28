@@ -56,7 +56,8 @@ class Parser
                 $data['mediaSequence'] + $index,
                 !empty($row['isDiscontinuity']),
                 empty($row['title']) ? null : $row['title'],
-                empty($row['byterange']) ? null : $row['byterange']
+                empty($row['byteRangeLength']) ? null : $row['byteRangeLength'],
+                empty($row['byteRangeOffset']) ? null : $row['byteRangeOffset']
             );
             $playlist->add($mediaSegment);
         }
@@ -104,8 +105,11 @@ class Parser
                 continue;
             }
 
-            if (preg_match('/^#EXT-X-BYTERANGE:(.+)$/', $line, $matches)) {
-                $data['playlist'][$mediaSequence]['byterange'] = $matches[1];
+            if (preg_match('/^#EXT-X-BYTERANGE:(\d+)(@(\d+))?$/', $line, $matches)) {
+                $data['playlist'][$mediaSequence]['byteRangeLength'] = (int) $matches[1];
+                if (isset($matches[3])) {
+                    $data['playlist'][$mediaSequence]['byteRangeOffset'] = (int) $matches[3];
+                }
                 continue;
             }
 
