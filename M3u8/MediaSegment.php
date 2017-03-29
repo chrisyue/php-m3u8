@@ -63,11 +63,6 @@ class MediaSegment
 
     public function getByteRange()
     {
-        return ['length' => $this->byterange[0], 'offset' => $this->byterange[1]];
-    }
-
-    public function getByteRangeFixed()
-    {
         return $this->byterange;
     }
 }
