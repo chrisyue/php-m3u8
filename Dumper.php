@@ -37,6 +37,15 @@ class Dumper
                 $lines[] = '#EXT-X-DISCONTINUITY';
             }
 
+            if (!is_null($mediaSegment->getByteRange()[0])) {
+                $lines[] = sprintf(
+                    '#EXT-X-BYTERANGE:%d%s%d',
+                    $mediaSegment->getByteRange()[0],
+                    is_null($mediaSegment->getByteRange()[1]) ? null : '@',
+                    $mediaSegment->getByteRange()[1]
+                );
+            }
+
             $lines[] = self::createExtinfLine($m3u8->getVersion(), $mediaSegment);
             $lines[] = $mediaSegment->getUri();
         }

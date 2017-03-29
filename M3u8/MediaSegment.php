@@ -18,14 +18,22 @@ class MediaSegment
     protected $sequence;
     protected $isDiscontinuity;
     protected $title;
+    protected $byterange;
 
-    public function __construct($uri, $duration, $sequence, $isDiscontinuity = false, $title = null)
+    public function __construct($uri, $duration, $sequence, $isDiscontinuity = false, $title = null, $byteRangeLength = null, $byteRangeOffset = null)
     {
         $this->uri = $uri;
         $this->duration = $duration;
         $this->sequence = $sequence;
         $this->isDiscontinuity = $isDiscontinuity;
         $this->title = $title;
+        $this->byterange = \SplFixedArray::fromArray(
+            array(
+                $byteRangeLength,
+                is_null($byteRangeLength) ? null : $byteRangeOffset,
+            ),
+            false
+        );
     }
 
     public function getUri()
@@ -51,5 +59,10 @@ class MediaSegment
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getByteRange()
+    {
+        return $this->byterange;
     }
 }
