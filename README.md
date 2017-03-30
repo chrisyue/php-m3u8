@@ -42,6 +42,7 @@ M3U8;
 
 $parser = new \Chrisyue\PhpM3u8\Parser();
 $m3u8 = $parser->parse($m3u8Content);
+```
 
 or with loader
 
@@ -65,7 +66,7 @@ $m3u8->getVersion();
 $m3u8->getTargetDuration();
 $m3u8->getDuration();
 
-// get curtain media segment inforatiom
+// get certain media segment inforatiom
 $mediaSegment = $m3u8->getPlaylist()->offsetGet(0);
 // or
 $mediaSegment = $m3u8->getPlaylist()[0];

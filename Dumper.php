@@ -38,6 +38,12 @@ class Dumper
             }
 
             $lines[] = self::createExtinfLine($m3u8->getVersion(), $mediaSegment);
+
+            $byteRangeline = self::createByteRangeLine($mediaSegment);
+            if (!empty($byteRangeline)) {
+                $lines[] = $byteRangeline;
+            }
+
             $lines[] = $mediaSegment->getUri();
         }
 
@@ -51,5 +57,20 @@ class Dumper
         }
 
         return sprintf('#EXTINF:%.3f,%s', $mediaSegment->getDuration(), $mediaSegment->getTitle());
+    }
+
+    private static function createByteRangeLine(MediaSegment $mediaSegment)
+    {
+        $byteRange = $mediaSegment->getByteRange();
+        if (empty($byteRange[0])) {
+            return;
+        }
+
+        $line = sprintf('#EXT-X-BYTERANGE:%d', $byteRange[0]);
+        if (empty($byteRange[1])) {
+            return $line;
+        }
+
+        return sprintf('%s@%d', $line, $byteRange[1]);
     }
 }

@@ -23,7 +23,7 @@ class DumperTest extends TestCase
         $dumper = new Dumper();
         $m3u8Content = $dumper->dump($m3u8);
 
-        $this->assertEquals($m3u8Content, DummyM3u8Factory::createM3u8Content());
+        $this->assertEquals(DummyM3u8Factory::createM3u8Content(), $m3u8Content);
     }
 
     public function testDumpVersionLessThan3()
@@ -33,6 +33,6 @@ class DumperTest extends TestCase
         $dumper = new Dumper();
         $m3u8Content = $dumper->dump($m3u8);
 
-        $this->assertEquals($m3u8Content, DummyM3u8Factory::createM3u8Content(2));
+        $this->assertEquals(DummyM3u8Factory::createM3u8Content(2), $m3u8Content);
     }
 }
