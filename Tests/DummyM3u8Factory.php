@@ -28,7 +28,7 @@ class DummyM3u8Factory
             new MediaSegment('stream0.ts', 6, 17, false, null, \SplFixedArray::fromArray(array(1000, 1000))),
         ));
 
-        return new M3u8($playlist, $version, 6);
+        return new M3u8($playlist, $version, 6, 3);
     }
 
     public static function createM3u8Content($version = 3)
@@ -39,6 +39,7 @@ class DummyM3u8Factory
 #EXT-X-VERSION:2
 #EXT-X-TARGETDURATION:6
 #EXT-X-MEDIA-SEQUENCE:12
+#EXT-X-DISCONTINUITY-SEQUENCE:3
 #EXTINF:5,title
 stream12.ts
 #EXTINF:4,
@@ -62,6 +63,7 @@ M3U8;
 #EXT-X-VERSION:3
 #EXT-X-TARGETDURATION:6
 #EXT-X-MEDIA-SEQUENCE:12
+#EXT-X-DISCONTINUITY-SEQUENCE:3
 #EXTINF:5.000,title
 stream12.ts
 #EXTINF:4.000,
