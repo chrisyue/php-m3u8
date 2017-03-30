@@ -34,7 +34,7 @@
     "target-dir": "Chrisyue/PhpM3u8",
     "extra": {
         "branch-alias" : {
-            "dev-master" : "1.3.1-dev"
+            "dev-master" : "1.4.0-dev"
         }
     }
 }
