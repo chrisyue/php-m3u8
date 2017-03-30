@@ -93,6 +93,11 @@ class Parser
                 continue;
             }
 
+            if (preg_match('/^#EXT-X-DISCONTINUITY-SEQUENCE:(\d+)/', $line, $matches)) {
+                $data['discontinuitySequence'] = (int) $matches[1];
+                continue;
+            }
+
             if (preg_match('/^#EXT-X-DISCONTINUITY/', $line)) {
                 $data['playlist'][$mediaSequence]['isDiscontinuity'] = true;
                 continue;
