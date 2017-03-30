@@ -48,6 +48,10 @@ class Parser
             $data['mediaSequence'] = 0;
         }
 
+        if (empty($data['discontinuitySequence'])) {
+            $data['discontinuitySequence'] = null;
+        }
+
         $playlist = new Playlist();
         foreach ($data['playlist'] as $index => $row) {
             $mediaSegment = new MediaSegment(
@@ -55,12 +59,13 @@ class Parser
                 $row['duration'],
                 $data['mediaSequence'] + $index,
                 !empty($row['isDiscontinuity']),
-                empty($row['title']) ? null : $row['title']
+                empty($row['title']) ? null : $row['title'],
+                empty($row['byteRange']) ? null : $row['byteRange']
             );
             $playlist->add($mediaSegment);
         }
 
-        return new M3u8($playlist, $data['version'], $data['targetDuration']);
+        return new M3u8($playlist, $data['version'], $data['targetDuration'], $data['discontinuitySequence']);
     }
 
     private function content2Data($content)
@@ -79,12 +84,12 @@ class Parser
             }
 
             if (preg_match('/^#EXT-X-TARGETDURATION:(\d+)/', $line, $matches)) {
-                $data['targetDuration'] = +$matches[1];
+                $data['targetDuration'] = (int) $matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-MEDIA-SEQUENCE:(\d+)/', $line, $matches)) {
-                $data['mediaSequence'] = +$matches[1];
+                $data['mediaSequence'] = (int) $matches[1];
                 continue;
             }
 
@@ -99,6 +104,19 @@ class Parser
                 if (isset($matches[2])) {
                     $data['playlist'][$mediaSequence]['title'] = $matches[2];
                 }
+
+                continue;
+            }
+
+            if (preg_match('/^#EXT-X-BYTERANGE:(\d+)(@(\d+))?$/', $line, $matches)) {
+                $byteRange = new \SplFixedArray(2);
+                $byteRange[0] = (int) $matches[1];
+
+                if (!empty($matches[3])) {
+                    $byteRange[1] = (int) $matches[3];
+                }
+
+                $data['playlist'][$mediaSequence]['byteRange'] = $byteRange;
 
                 continue;
             }
