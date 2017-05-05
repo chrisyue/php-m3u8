@@ -47,6 +47,10 @@ class Dumper
             $lines[] = $mediaSegment->getUri();
         }
 
+        if (!$m3u8->isEndless()) {
+            $lines[] = '#EXT-X-ENDLIST';
+        }
+
         return implode(PHP_EOL, $lines);
     }
 

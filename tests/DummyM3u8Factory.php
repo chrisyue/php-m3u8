@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests;
+namespace Chrisyue\PhpM3u8\Tests;
 
 use Chrisyue\PhpM3u8\M3u8\M3u8;
 use Chrisyue\PhpM3u8\M3u8\MediaSegment;
@@ -55,6 +55,7 @@ stream0.ts
 #EXTINF:6,
 #EXT-X-BYTERANGE:1000@1000
 stream0.ts
+#EXT-X-ENDLIST
 M3U8;
         }
 
@@ -79,6 +80,7 @@ stream0.ts
 #EXTINF:6.000,
 #EXT-X-BYTERANGE:1000@1000
 stream0.ts
+#EXT-X-ENDLIST
 M3U8;
     }
 }

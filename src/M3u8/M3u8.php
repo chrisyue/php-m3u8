@@ -60,4 +60,9 @@ class M3u8
     {
         return $this->playlist->getDuration();
     }
+
+    public function isEndless()
+    {
+        return $this->playlist->isEndless();
+    }
 }
