@@ -27,11 +27,10 @@
         "phpunit/phpunit": "^4.8"
     },
     "autoload": {
-        "psr-0": {
-            "Chrisyue\\PhpM3u8" : ""
+        "psr-4": {
+            "Chrisyue\\PhpM3u8\\" : "src"
         }
     },
-    "target-dir": "Chrisyue/PhpM3u8",
     "extra": {
         "branch-alias" : {
             "dev-develop" : "1.5.0-dev"
