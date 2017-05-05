@@ -13,13 +13,15 @@ namespace Chrisyue\PhpM3u8\M3u8;
 
 class Playlist implements \Iterator, \ArrayAccess
 {
-    private $mediaSegments = array();
+    private $mediaSegments;
+    private $isEndless;
     private $age;
     private $position = 0;
 
-    public function __construct(array $mediaSegments = array(), $age = null)
+    public function __construct(array $mediaSegments = array(), $isEndless = false, $age = null)
     {
         $this->mediaSegments = $mediaSegments;
+        $this->isEndless = $isEndless;
         $this->age = $age;
     }
 
@@ -119,5 +121,10 @@ class Playlist implements \Iterator, \ArrayAccess
     public function getAge()
     {
         return $this->age;
+    }
+
+    public function isEndless()
+    {
+        return $this->isEndless;
     }
 }

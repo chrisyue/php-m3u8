@@ -38,39 +38,44 @@ class Parser
 
     public function parse($content)
     {
-        $data = $this->content2Data($content);
+        $tokens = $this->lex($content);
 
-        if (empty($data['version'])) {
-            $data['version'] = 3;
+        if (!isset($tokens['version'])) {
+            $tokens['version'] = 3;
         }
 
-        if (empty($data['mediaSequence'])) {
-            $data['mediaSequence'] = 0;
+        if (!isset($tokens['mediaSequence'])) {
+            $tokens['mediaSequence'] = 0;
         }
 
-        if (empty($data['discontinuitySequence'])) {
-            $data['discontinuitySequence'] = null;
+        if (!isset($tokens['discontinuitySequence'])) {
+            $tokens['discontinuitySequence'] = null;
         }
 
-        $playlist = new Playlist();
-        foreach ($data['playlist'] as $index => $row) {
+        if (!isset($tokens['isEndless'])) {
+            $tokens['isEndless'] = true;
+        }
+
+        $mediaSegments = array();
+        foreach ($tokens['playlist'] as $index => $row) {
             $mediaSegment = new MediaSegment(
                 $row['uri'],
                 $row['duration'],
-                $data['mediaSequence'] + $index,
+                $tokens['mediaSequence'] + $index,
                 !empty($row['isDiscontinuity']),
                 empty($row['title']) ? null : $row['title'],
                 empty($row['byteRange']) ? null : $row['byteRange']
             );
-            $playlist->add($mediaSegment);
+            $mediaSegments[] = $mediaSegment;
         }
+        $playlist = new Playlist($mediaSegments, $tokens['isEndless']);
 
-        return new M3u8($playlist, $data['version'], $data['targetDuration'], $data['discontinuitySequence']);
+        return new M3u8($playlist, $tokens['version'], $tokens['targetDuration'], $tokens['discontinuitySequence']);
     }
 
-    private function content2Data($content)
+    private function lex($content)
     {
-        $data = array();
+        $tokens = array();
 
         $mediaSequence = 0;
 
@@ -79,35 +84,35 @@ class Parser
             $line = trim($line);
 
             if (preg_match('/^#EXT-X-VERSION:(\d+)/', $line, $matches)) {
-                $data['version'] = $matches[1];
+                $tokens['version'] = $matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-TARGETDURATION:(\d+)/', $line, $matches)) {
-                $data['targetDuration'] = (int) $matches[1];
+                $tokens['targetDuration'] = (int) $matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-MEDIA-SEQUENCE:(\d+)/', $line, $matches)) {
-                $data['mediaSequence'] = (int) $matches[1];
+                $tokens['mediaSequence'] = (int) $matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-DISCONTINUITY-SEQUENCE:(\d+)/', $line, $matches)) {
-                $data['discontinuitySequence'] = (int) $matches[1];
+                $tokens['discontinuitySequence'] = (int) $matches[1];
                 continue;
             }
 
             if (preg_match('/^#EXT-X-DISCONTINUITY/', $line)) {
-                $data['playlist'][$mediaSequence]['isDiscontinuity'] = true;
+                $tokens['playlist'][$mediaSequence]['isDiscontinuity'] = true;
                 continue;
             }
 
             if (preg_match('/^#EXTINF:(.+),(.*)$/', $line, $matches)) {
-                $data['playlist'][$mediaSequence]['duration'] = $matches[1];
+                $tokens['playlist'][$mediaSequence]['duration'] = $matches[1];
 
                 if (isset($matches[2])) {
-                    $data['playlist'][$mediaSequence]['title'] = $matches[2];
+                    $tokens['playlist'][$mediaSequence]['title'] = $matches[2];
                 }
 
                 continue;
@@ -121,17 +126,24 @@ class Parser
                     $byteRange[1] = (int) $matches[3];
                 }
 
-                $data['playlist'][$mediaSequence]['byteRange'] = $byteRange;
+                $tokens['playlist'][$mediaSequence]['byteRange'] = $byteRange;
 
                 continue;
             }
 
             if (preg_match('/^[^#]+/', $line, $matches)) {
-                $data['playlist'][$mediaSequence]['uri'] = $matches[0];
+                $tokens['playlist'][$mediaSequence]['uri'] = $matches[0];
                 ++$mediaSequence;
+
+                continue;
+            }
+
+            if ('#EXT-X-ENDLIST' === $line) {
+                $tokens['isEndless'] = false;
+                break;
             }
         }
 
-        return $data;
+        return $tokens;
     }
 }

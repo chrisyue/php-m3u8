@@ -16,7 +16,7 @@ function file_get_contents($uri)
     return 'hello world';
 }
 
-namespace Tests\Loader;
+namespace Chrisyue\PhpM3u8\Tests\Loader;
 
 use Chrisyue\PhpM3u8\Loader\CachableLoader;
 use PHPUnit\Framework\TestCase;

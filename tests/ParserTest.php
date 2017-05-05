@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests;
+namespace Chrisyue\PhpM3u8\Tests;
 
 use Chrisyue\PhpM3u8\Parser;
 use PHPUnit\Framework\TestCase;
