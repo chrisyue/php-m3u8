@@ -13,31 +13,31 @@ namespace Chrisyue\PhpM3u8\Tag;
 
 class DiscontinuityTag extends AbstractSegmentTag
 {
-    private $isDiscontinuity = false;
+    private $discontinuity = false;
 
     const TAG_IDENTIFIER = '#EXT-X-DISCONTINUITY';
 
-    public function setDiscontinuity($isDiscontinuity)
+    public function setDiscontinuity($discontinuity)
     {
-        $this->isDiscontinuity = $isDiscontinuity;
+        $this->discontinuity = $discontinuity;
 
         return $this;
     }
 
     public function isDiscontinuity()
     {
-        return $this->isDiscontinuity;
+        return $this->discontinuity;
     }
 
     public function dump()
     {
-        if ($this->isDiscontinuity) {
+        if ($this->discontinuity) {
             return self::TAG_IDENTIFIER;
         }
     }
 
     protected function read($line)
     {
-        $this->isDiscontinuity = true;
+        $this->discontinuity = true;
     }
 }
