@@ -15,11 +15,7 @@
         "MIT"
     ],
     "require": {
-        "php": ">=5.3.9",
-        "psr/cache": "^1.0.0"
-    },
-    "suggest": {
-        "symfony/cache": "Cache implements PSR6"
+        "php": ">=5.3.9"
     },
     "require-dev": {
         "sllh/php-cs-fixer-styleci-bridge": "^2.1",
@@ -37,4 +33,3 @@
         }
     }
 }
-

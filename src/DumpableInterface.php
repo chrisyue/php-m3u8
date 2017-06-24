@@ -9,9 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Loader;
+namespace Chrisyue\PhpM3u8;
 
-interface LoaderInterface
+interface DumpableInterface
 {
-    public function load($uri);
+    public function readLines(array &$lines);
+
+    public function dump();
 }

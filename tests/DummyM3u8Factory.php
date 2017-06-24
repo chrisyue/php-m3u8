@@ -9,26 +9,35 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Tests;
+namespace Chrisyue\PhpM3u8\tests;
 
-use Chrisyue\PhpM3u8\M3u8\M3u8;
-use Chrisyue\PhpM3u8\M3u8\MediaSegment;
-use Chrisyue\PhpM3u8\M3u8\Playlist;
+use Chrisyue\PhpM3u8\M3u8;
+use Chrisyue\PhpM3u8\Segment;
 
 class DummyM3u8Factory
 {
     public static function createM3u8($version = 3)
     {
-        $playlist = new Playlist(array(
-            new MediaSegment('stream12.ts', 5, 12, false, 'title'),
-            new MediaSegment('stream13.ts', 4, 13),
-            new MediaSegment('stream14.ts', 3, 14),
-            new MediaSegment('stream15.ts', 6, 15),
-            new MediaSegment('stream0.ts', 6, 16, true, null, \SplFixedArray::fromArray(array(1000, null))),
-            new MediaSegment('stream0.ts', 6, 17, false, null, \SplFixedArray::fromArray(array(1000, 1000))),
-        ));
+        $m3u8 = new M3u8();
+        $m3u8->getVersionTag()->setVersion($version);
+        $m3u8->getMediaSequenceTag()->setMediaSequence(33);
+        $m3u8->getDiscontinuitySequenceTag()->setDiscontinuitySequence(3);
+        $m3u8->getTargetDurationTag()->setTargetDuration(12);
+        $m3u8->getEndlistTag()->setEndless(true);
 
-        return new M3u8($playlist, $version, 6, 3);
+        $segment = new Segment($version);
+        $segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
+        $segment->getByteRangeTag()->setLength(10000)->setOffset(100);
+        $segment->getUri()->setUri('stream33.ts');
+        $m3u8->getSegments()->add($segment);
+
+        $segment = new Segment($version);
+        $segment->getExtinfTag()->setDuration(10);
+        $segment->getDiscontinuityTag()->setDiscontinuity(true);
+        $segment->getUri()->setUri('video01.ts');
+        $m3u8->getSegments()->add($segment);
+
+        return $m3u8;
     }
 
     public static function createM3u8Content($version = 3)
@@ -37,50 +46,30 @@ class DummyM3u8Factory
             return <<<'M3U8'
 #EXTM3U
 #EXT-X-VERSION:2
-#EXT-X-TARGETDURATION:6
-#EXT-X-MEDIA-SEQUENCE:12
+#EXT-X-TARGETDURATION:12
+#EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
-#EXTINF:5,title
-stream12.ts
-#EXTINF:4,
-stream13.ts
-#EXTINF:3,
-stream14.ts
-#EXTINF:6,
-stream15.ts
+#EXTINF:12,hello world
+#EXT-X-BYTERANGE:10000@100
+stream33.ts
+#EXTINF:10,
 #EXT-X-DISCONTINUITY
-#EXTINF:6,
-#EXT-X-BYTERANGE:1000
-stream0.ts
-#EXTINF:6,
-#EXT-X-BYTERANGE:1000@1000
-stream0.ts
-#EXT-X-ENDLIST
+video01.ts
 M3U8;
         }
 
         return <<<'M3U8'
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-TARGETDURATION:6
-#EXT-X-MEDIA-SEQUENCE:12
+#EXT-X-TARGETDURATION:12
+#EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
-#EXTINF:5.000,title
-stream12.ts
-#EXTINF:4.000,
-stream13.ts
-#EXTINF:3.000,
-stream14.ts
-#EXTINF:6.000,
-stream15.ts
+#EXTINF:12.000,hello world
+#EXT-X-BYTERANGE:10000@100
+stream33.ts
+#EXTINF:10.000,
 #EXT-X-DISCONTINUITY
-#EXTINF:6.000,
-#EXT-X-BYTERANGE:1000
-stream0.ts
-#EXTINF:6.000,
-#EXT-X-BYTERANGE:1000@1000
-stream0.ts
-#EXT-X-ENDLIST
+video01.ts
 M3U8;
     }
 }

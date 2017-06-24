@@ -23,7 +23,7 @@ $ composer require 'chrisyue/php-m3u8'
 Usage
 -----
 
-### Parser
+### Parse
 
 ```php
 $m3u8Content = <<<'M3U8'
@@ -41,23 +41,8 @@ stream14.ts
 stream15.ts
 M3U8;
 
-$parser = new \Chrisyue\PhpM3u8\Parser();
-$m3u8 = $parser->parse($m3u8Content);
-```
-
-or with loader
-
-```php
-class MyLoader implements LoaderInterface
-{
-    public function load($uri)
-    {
-        return file_get_contents('http://example.com/path/to/m3u8');
-    }
-}
-
-$parser->setLoader(new MyLoader());
-$m3u8 = $parser->parseFromUri($uri);
+$m3u8 = new M3u8();
+$m3u8->read($m3u8Content);
 ```
 
 now you can get information from $m3u8
@@ -68,37 +53,34 @@ $m3u8->getTargetDuration();
 $m3u8->getDuration();
 
 // get certain media segment inforatiom
-$mediaSegment = $m3u8->getPlaylist()->offsetGet(0);
+$segment = $m3u8->getSegments()->offsetGet(0);
 // or
-$mediaSegment = $m3u8->getPlaylist()[0];
+$segment = $m3u8->getSegments()[0];
 
-// get information from $mediaSegment
-$mediaSegment->getDuration();
-$mediaSegment->getSequence();
+// get information from $segment
+$segment->getDuration();
+$segment->getMediaSequence();
 ```
 
-*for more inforamation please check the `M3u8`, `PlayList`, `MediaSegment` API under `\Chrisyue\M3u8`*.
+*for more inforamation please check the `M3u8`, `Segments`, `Segment` API under `\Chrisyue\M3u8`*.
 
-Fortunately you don't really need to write a `MyLoader` class because there is already a `CachableLoader` along with this library
-
-supposing you are using psr6 compatible cache utils like Symfony cache component:
+### Dump
 
 ```php
-$cachePool = new \Symfony\Component\Cache\Adapter\ApcuAdapter();
-$loader = new \Chrisyue\PhpM3u8\CachableLoader($cachePool);
+$m3u8 = new M3u8();
+$m3u8->getVersionTag()->setVersion(3);
+$m3u8->getMediaSequenceTag()->setMediaSequence(33);
+$m3u8->getDiscontinuitySequenceTag()->setDiscontinuitySequence(3);
+$m3u8->getTargetDurationTag()->setTargetDuration(12);
+$m3u8->getEndlistTag()->setEndless(true);
 
-$parser->setLoader($loader);
-$m3u8 = $parser->parseFromUri($uri);
-```
+$segment = new Segment($version);
+$segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
+$segment->getByteRangeTag()->setLength(10000)->setOffset(100);
+$segment->getUri()->setUri('stream33.ts');
+$m3u8->getSegments()->add($segment);
 
-### Dumper
-
-now you can try to dump the `$m3u8` back into M3U8 text
-
-```php
-$dumper = new \Chrisyue\PhpM3u8\Dumper();
-
-echo $dumper->dump($m3u8);
+echo $m3u8->dump();
 ```
 
 ### To Contributors
