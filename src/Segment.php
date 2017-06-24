@@ -1,0 +1,104 @@
+<?php
+
+/*
+ * This file is part of the PhpM3u8 package.
+ *
+ * (c) Chrisyue <http://chrisyue.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Chrisyue\PhpM3u8;
+
+class Segment extends AbstractContainer
+{
+    private $extinfTag;
+    private $byteRangeTag;
+    private $discontinuityTag;
+    private $uri;
+
+    private $mediaSequence;
+    private $discontinuitySequence;
+
+    public function __construct($m3u8Version = null)
+    {
+        $this->extinfTag = new Tag\ExtinfTag($m3u8Version);
+        $this->byteRangeTag = new Tag\ByteRangeTag();
+        $this->discontinuityTag = new Tag\DiscontinuityTag();
+        $this->uri = new Uri();
+    }
+
+    public function setMediaSequence($mediaSequence)
+    {
+        $this->mediaSequence = $mediaSequence;
+
+        return $this;
+    }
+
+    public function getMediaSequence()
+    {
+        return $this->mediaSequence;
+    }
+
+    public function setDiscontinuitySequence($discontinuitySequence)
+    {
+        $this->discontinuitySequence = $discontinuitySequence;
+
+        return $this;
+    }
+
+    public function getDiscontinuitySequence()
+    {
+        return $this->discontinuitySequence;
+    }
+
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return Chrisyue\PhpM3u8\Tag\DiscontinuityTag
+     */
+    public function getDiscontinuityTag()
+    {
+        return $this->discontinuityTag;
+    }
+
+    public function isDiscontinuity()
+    {
+        return $this->discontinuityTag->isDiscontinuity();
+    }
+
+    /**
+     * @return Chrisyue\PhpM3u8\Tag\ExtinfTag
+     */
+    public function getExtinfTag()
+    {
+        return $this->extinfTag;
+    }
+
+    /**
+     * @return Chrisyue\PhpM3u8\Tag\ByteRangeTag
+     */
+    public function getByteRangeTag()
+    {
+        return $this->byteRangeTag;
+    }
+
+    public function isEmpty()
+    {
+        return $this->uri->isEmpty();
+    }
+
+    protected function getComponents()
+    {
+        return array(
+            $this->extinfTag,
+            $this->byteRangeTag,
+            $this->discontinuityTag,
+            $this->uri,
+        );
+    }
+}
