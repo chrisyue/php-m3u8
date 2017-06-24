@@ -15,32 +15,32 @@ use Chrisyue\PhpM3u8\DumpableInterface;
 
 class EndlistTag implements DumpableInterface
 {
-    private $isEndless;
+    private $endless;
 
     const TAG_IDENTIFIER = '#EXT-X-ENDLIST';
 
-    public function setEndless($isEndless)
+    public function setEndless($endless)
     {
-        $this->isEndless = $isEndless;
+        $this->endless = $endless;
 
         return $this;
     }
 
     public function isEndless()
     {
-        return $this->isEndless;
+        return $this->endless;
     }
 
     public function readLines(array &$lines)
     {
         $lastLine = end($lines);
-        $this->isEndless = !(!empty($lastLine) && self::TAG_IDENTIFIER === $lastLine);
+        $this->endless = !(!empty($lastLine) && self::TAG_IDENTIFIER === $lastLine);
 
         $lines = array();
     }
 
     public function dump()
     {
-        return $this->isEndless ? '' : self::TAG_IDENTIFIER;
+        return $this->endless ? '' : self::TAG_IDENTIFIER;
     }
 }
