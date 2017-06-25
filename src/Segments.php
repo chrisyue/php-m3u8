@@ -17,7 +17,6 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
     private $m3u8;
 
     private $position = 0;
-    private $age;
 
     public function __construct(M3u8 $m3u8)
     {
@@ -106,18 +105,6 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
     public function count()
     {
         return count($this->segments);
-    }
-
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getAge()
-    {
-        return $this->age;
     }
 
     public function readLines(array &$lines)
