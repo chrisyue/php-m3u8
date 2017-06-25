@@ -39,6 +39,8 @@ class M3u8Test extends TestCase
         $this->assertEquals(10, $segment->getExtinfTag()->getDuration());
         $this->assertEquals('video01.ts', (string) $segment->getUri());
         $this->assertTrue($segment->isDiscontinuity());
+
+        $this->assertEquals(22, $m3u8->getDuration());
     }
 
     public function testDump()

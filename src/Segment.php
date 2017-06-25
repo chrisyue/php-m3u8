@@ -79,6 +79,11 @@ class Segment extends AbstractContainer
         return $this->extinfTag;
     }
 
+    public function getDuration()
+    {
+        return $this->extinfTag->getDuration();
+    }
+
     /**
      * @return Chrisyue\PhpM3u8\Tag\ByteRangeTag
      */
