@@ -102,16 +102,6 @@ class M3u8 extends AbstractContainer
         return $this->segments->getDuration();
     }
 
-    /**
-     * This method is used when you want to create a live playlist.
-     *
-     * @return int
-     */
-    public function getAge()
-    {
-        return $this->segments->getAge();
-    }
-
     protected function getComponents()
     {
         return array(
