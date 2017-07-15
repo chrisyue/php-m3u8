@@ -34,7 +34,7 @@ class M3u8 extends AbstractContainer
 
     public function read($string)
     {
-        $lines = $this->split($string);
+        $lines = self::split($string);
 
         $this->readLines($lines);
     }
@@ -104,7 +104,7 @@ class M3u8 extends AbstractContainer
 
     protected function getComponents()
     {
-        return array(
+        return [
             $this->m3uTag,
             $this->versionTag,
             $this->targetDurationTag,
@@ -112,10 +112,10 @@ class M3u8 extends AbstractContainer
             $this->discontinuitySequenceTag,
             $this->segments,
             $this->endlistTag,
-        );
+        ];
     }
 
-    private function split($string)
+    private static function split($string)
     {
         $lines = explode("\n", $string);
         $lines = array_map('trim', $lines);

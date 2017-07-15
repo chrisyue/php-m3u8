@@ -28,6 +28,9 @@ class M3u8Test extends TestCase
         $this->assertEquals(3, $m3u8->getDiscontinuitySequence());
 
         $segment = $m3u8->getSegments()->offsetGet(0);
+        $this->assertEquals('AES-128', $segment->getKeyTags()[0]->getMethod());
+        $this->assertEquals('com.apple', $segment->getKeyTags()[1]->getKeyFormat());
+        $this->assertEquals([1], $segment->getKeyTags()[1]->getKeyFormatVersions());
         $this->assertEquals(12, $segment->getExtinfTag()->getDuration());
         $this->assertEquals('hello world', $segment->getExtinfTag()->getTitle());
         $this->assertEquals('stream33.ts', (string) $segment->getUri());

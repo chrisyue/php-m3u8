@@ -36,7 +36,7 @@ class EndlistTag implements DumpableInterface
         $lastLine = end($lines);
         $this->endless = !(!empty($lastLine) && self::TAG_IDENTIFIER === $lastLine);
 
-        $lines = array();
+        $lines = [];
     }
 
     public function dump()

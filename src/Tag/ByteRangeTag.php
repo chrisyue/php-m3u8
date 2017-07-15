@@ -11,7 +11,7 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class ByteRangeTag extends AbstractSegmentTag
+class ByteRangeTag extends AbstractTag
 {
     private $length;
     private $offset;
@@ -29,13 +29,16 @@ class ByteRangeTag extends AbstractSegmentTag
     }
 
     /**
-     * @return self
+     * @return int
      */
     public function getLength()
     {
         return $this->length;
     }
 
+    /**
+     * @return self
+     */
     public function setOffset($offset)
     {
         $this->offset = $offset;
@@ -43,6 +46,9 @@ class ByteRangeTag extends AbstractSegmentTag
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getOffset()
     {
         return $this->offset;
@@ -65,11 +71,6 @@ class ByteRangeTag extends AbstractSegmentTag
 
     protected function read($line)
     {
-        preg_match('/^#EXT-X-BYTERANGE:(\d+)(@(\d+))?$/', $line, $matches);
-        $this->length = (int) $matches[1];
-
-        if (!empty($matches[3])) {
-            $this->offset = (int) $matches[3];
-        }
+        list($this->length, $this->offset) = sscanf($line, self::TAG_IDENTIFIER.':%d@%d');
     }
 }
