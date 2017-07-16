@@ -3,6 +3,8 @@ PHP M3u8
 
 M3u8 file parser / dumper
 
+v2.1.0
+
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a/big.png)](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a)
 
 [![Latest Stable Version](https://poser.pugx.org/chrisyue/php-m3u8/v/stable)](https://packagist.org/packages/chrisyue/php-m3u8)
@@ -63,6 +65,38 @@ $segment->getMediaSequence();
 ```
 
 *for more inforamation please check the `M3u8`, `Segments`, `Segment` API under `\Chrisyue\M3u8`*.
+
+#### Supported Tags
+
+According to [HLS draft version 23](https://tools.ietf.org/html/draft-pantos-http-live-streaming-23)
+
+* Basic Tags
+    - [x] EXTM3U
+    - [x] EXT-X-VERSION
+* Media Segment Tags
+    - [x] EXTINF
+    - [x] EXT-X-BYTERANGE
+    - [x] EXT-X-DISCONTINUITY
+    - [x] EXT-X-KEY
+    - [ ] EXT-X-MAP
+    - [ ] EXT-X-PROGRAM-DATE-TIME
+    - [ ] EXT-X-DATERANGE
+* Media Playlist Tags
+    - [x] EXT-X-TARGETDURATION
+    - [x] EXT-X-MEDIA-SEQUENCE
+    - [x] EXT-X-DISCONTINUITY-SEQUENCE
+    - [x] EXT-X-ENDLIST
+    - [ ] EXT-X-PLAYLIST-TYPE
+    - [ ] EXT-X-I-FRAMES-ONLY
+* Master Playlist Tags
+    - [ ] EXT-X-MEDIA
+    - [ ] EXT-X-STREAM-INF
+    - [ ] EXT-X-I-FRAME-STREAM-INF
+    - [ ] EXT-X-SESSION-DATA
+    - [ ] EXT-X-SESSION-KEY
+* Media or Master Playlist Tags
+    - [ ] EXT-X-INDEPENDENT-SEGMENTS
+    - [ ] EXT-X-START
 
 ### Dump
 
