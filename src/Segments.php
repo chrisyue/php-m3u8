@@ -13,7 +13,7 @@ namespace Chrisyue\PhpM3u8;
 
 class Segments implements DumpableInterface, \Iterator, \ArrayAccess
 {
-    private $segments = array();
+    private $segments = [];
     private $m3u8;
 
     private $position = 0;
@@ -69,6 +69,9 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
         return $this->segments[$offset];
     }
 
+    /**
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return isset($this->segments[$offset]);
@@ -84,6 +87,9 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
         $this->segments[] = $segment;
     }
 
+    /**
+     * @return int|float
+     */
     public function getDuration()
     {
         $duration = 0;
@@ -94,6 +100,9 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
         return $duration;
     }
 
+    /**
+     * @return Chrisyue\PhpM3u8\Segment
+     */
     public function getFirst()
     {
         $first = reset($this->segments);
@@ -102,6 +111,9 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
         }
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return count($this->segments);

@@ -11,8 +11,10 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class VersionTag extends AbstractHeadTag
+class VersionTag extends AbstractTag
 {
+    use SingleValueTagTrait;
+
     private $version = 3;
 
     const TAG_IDENTIFIER = '#EXT-X-VERSION';
@@ -36,7 +38,6 @@ class VersionTag extends AbstractHeadTag
 
     protected function read($line)
     {
-        preg_match('/^#EXT-X-VERSION:(\d+)/', $line, $matches);
-        $this->version = (int) $matches[1];
+        $this->version = (int) self::extractValue($line);
     }
 }

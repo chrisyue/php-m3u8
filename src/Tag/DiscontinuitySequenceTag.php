@@ -11,8 +11,10 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class DiscontinuitySequenceTag extends AbstractSegmentTag
+class DiscontinuitySequenceTag extends AbstractTag
 {
+    use SingleValueTagTrait;
+
     private $discontinuitySequence = 0;
 
     const TAG_IDENTIFIER = '#EXT-X-DISCONTINUITY-SEQUENCE';
@@ -36,7 +38,6 @@ class DiscontinuitySequenceTag extends AbstractSegmentTag
 
     protected function read($line)
     {
-        preg_match('/^#EXT-X-DISCONTINUITY-SEQUENCE:(\d+)/', $line, $matches);
-        $this->discontinuitySequence = (int) $matches[1];
+        $this->discontinuitySequence = (int) self::extractValue($line);
     }
 }

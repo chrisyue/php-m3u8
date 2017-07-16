@@ -15,7 +15,7 @@
         "MIT"
     ],
     "require": {
-        "php": ">=5.3.9"
+        "php": ">=5.4.0"
     },
     "require-dev": {
         "sllh/php-cs-fixer-styleci-bridge": "^2.1",
@@ -29,7 +29,7 @@
     },
     "extra": {
         "branch-alias" : {
-            "dev-develop" : "2.0.1-dev"
+            "dev-master" : "2.1.x-dev"
         }
     }
 }

@@ -11,7 +11,7 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class ExtinfTag extends AbstractSegmentTag
+class ExtinfTag extends AbstractTag
 {
     private $duration;
     private $title;
@@ -63,11 +63,6 @@ class ExtinfTag extends AbstractSegmentTag
 
     protected function read($line)
     {
-        preg_match('/^#EXTINF:(.+),(.*)$/', $line, $matches);
-        $this->duration = $matches[1];
-
-        if (isset($matches[2])) {
-            $this->title = $matches[2];
-        }
+        list($this->duration, $this->title) = sscanf($line, self::TAG_IDENTIFIER.':%f,%[^$]');
     }
 }

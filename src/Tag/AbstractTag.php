@@ -13,10 +13,14 @@ namespace Chrisyue\PhpM3u8\Tag;
 
 use Chrisyue\PhpM3u8\DumpableInterface;
 
-abstract class AbstractSegmentTag implements DumpableInterface
+abstract class AbstractTag implements DumpableInterface
 {
     public function readLines(array &$lines)
     {
+        if (empty($lines)) {
+            return;
+        }
+
         foreach ($lines as $key => $line) {
             if (0 === strpos($line, static::TAG_IDENTIFIER)) {
                 $this->read($line);
@@ -26,7 +30,7 @@ abstract class AbstractSegmentTag implements DumpableInterface
                 return;
             }
 
-            if (0 !== strpos('#', $line)) {
+            if (0 !== strpos($line, '#')) {
                 return;
             }
         }

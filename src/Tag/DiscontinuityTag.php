@@ -11,7 +11,7 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class DiscontinuityTag extends AbstractSegmentTag
+class DiscontinuityTag extends AbstractTag
 {
     private $discontinuity = false;
 
