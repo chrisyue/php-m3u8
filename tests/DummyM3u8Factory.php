@@ -13,6 +13,7 @@ namespace Chrisyue\PhpM3u8\tests;
 
 use Chrisyue\PhpM3u8\M3u8;
 use Chrisyue\PhpM3u8\Segment;
+use Chrisyue\PhpM3u8\Tag\KeyTag;
 
 class DummyM3u8Factory
 {
@@ -26,6 +27,15 @@ class DummyM3u8Factory
         $m3u8->getEndlistTag()->setEndless(true);
 
         $segment = new Segment($version);
+
+        $keyTag = new KeyTag();
+        $keyTag->setMethod('AES-128')->setUri('key')->setIV('0xF85A5066CCB442181ACACA2E862A34DC');
+        $segment->getKeyTags()->add($keyTag);
+        $keyTag = new KeyTag();
+        $keyTag->setMethod('SAMPLE-AES')->setUri('key2')->setIV('0xF85A5066CCB442181ACACA2E862A34DC')
+            ->setKeyFormat('com.apple')->setKeyFormatVersions([1]);
+        $segment->getKeyTags()->add($keyTag);
+
         $segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
         $segment->getByteRangeTag()->setLength(10000)->setOffset(100);
         $segment->getUri()->setUri('stream33.ts');
@@ -49,6 +59,8 @@ class DummyM3u8Factory
 #EXT-X-TARGETDURATION:12
 #EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
+#EXT-X-KEY:METHOD=AES-128,URI="key",IV=0xF85A5066CCB442181ACACA2E862A34DC
+#EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12,hello world
 #EXT-X-BYTERANGE:10000@100
 stream33.ts
@@ -64,6 +76,8 @@ M3U8;
 #EXT-X-TARGETDURATION:12
 #EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
+#EXT-X-KEY:METHOD=AES-128,URI="key",IV=0xF85A5066CCB442181ACACA2E862A34DC
+#EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12.000,hello world
 #EXT-X-BYTERANGE:10000@100
 stream33.ts

@@ -11,8 +11,10 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class MediaSequenceTag extends AbstractHeadTag
+class MediaSequenceTag extends AbstractTag
 {
+    use SingleValueTagTrait;
+
     private $mediaSequence = 0;
 
     const TAG_IDENTIFIER = '#EXT-X-MEDIA-SEQUENCE';
@@ -36,8 +38,6 @@ class MediaSequenceTag extends AbstractHeadTag
 
     protected function read($line)
     {
-        preg_match('/^#EXT-X-MEDIA-SEQUENCE:(\d+)/', $line, $matches);
-
-        $this->mediaSequence = (int) $matches[1];
+        $this->mediaSequence = (int) self::extractValue($line);
     }
 }

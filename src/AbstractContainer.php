@@ -16,6 +16,10 @@ abstract class AbstractContainer implements DumpableInterface
     public function readLines(array &$lines)
     {
         foreach ($this->getComponents() as $component) {
+            if (empty($lines)) {
+                break;
+            }
+
             $component->readLines($lines);
         }
     }

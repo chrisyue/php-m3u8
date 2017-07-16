@@ -11,8 +11,10 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class TargetDurationTag extends AbstractHeadTag
+class TargetDurationTag extends AbstractTag
 {
+    use SingleValueTagTrait;
+
     private $targetDuration;
 
     const TAG_IDENTIFIER = '#EXT-X-TARGETDURATION';
@@ -36,7 +38,6 @@ class TargetDurationTag extends AbstractHeadTag
 
     protected function read($line)
     {
-        preg_match('/^#EXT-X-TARGETDURATION:(\d+)/', $line, $matches);
-        $this->targetDuration = (int) $matches[1];
+        $this->targetDuration = (int) self::extractValue($line);
     }
 }
