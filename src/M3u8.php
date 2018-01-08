@@ -15,6 +15,7 @@ class M3u8 extends AbstractContainer
 {
     private $m3uTag;
     private $versionTag;
+    private $playlistTypeTag;
     private $targetDurationTag;
     private $mediaSequenceTag;
     private $discontinuitySequenceTag;
@@ -25,6 +26,7 @@ class M3u8 extends AbstractContainer
     {
         $this->m3uTag = new Tag\M3uTag();
         $this->versionTag = new Tag\VersionTag();
+        $this->playlistTypeTag = new Tag\PlaylistTypeTag();
         $this->targetDurationTag = new Tag\TargetDurationTag();
         $this->mediaSequenceTag = new Tag\MediaSequenceTag();
         $this->discontinuitySequenceTag = new Tag\DiscontinuitySequenceTag();
@@ -47,6 +49,16 @@ class M3u8 extends AbstractContainer
     public function getVersion()
     {
         return $this->versionTag->getVersion();
+    }
+
+    public function getPlaylistTypeTag()
+    {
+        return $this->playlistTypeTag;
+    }
+
+    public function getPlaylistType()
+    {
+        return $this->playlistTypeTag->getPlaylistType();
     }
 
     public function getTargetDurationTag()
@@ -107,6 +119,7 @@ class M3u8 extends AbstractContainer
         return [
             $this->m3uTag,
             $this->versionTag,
+            $this->playlistTypeTag,
             $this->targetDurationTag,
             $this->mediaSequenceTag,
             $this->discontinuitySequenceTag,

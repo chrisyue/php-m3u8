@@ -16,6 +16,7 @@ class Segment extends AbstractContainer
     private $extinfTag;
     private $byteRangeTag;
     private $discontinuityTag;
+    private $streamTags;
     private $keyTags;
     private $uri;
 
@@ -27,6 +28,7 @@ class Segment extends AbstractContainer
         $this->extinfTag = new Tag\ExtinfTag($m3u8Version);
         $this->byteRangeTag = new Tag\ByteRangeTag();
         $this->discontinuityTag = new Tag\DiscontinuityTag();
+        $this->streamTags = new StreamTags();
         $this->keyTags = new KeyTags();
         $this->uri = new Uri();
     }
@@ -95,6 +97,14 @@ class Segment extends AbstractContainer
     }
 
     /**
+     * @return Chrisyue\PhpM3u8\StreamTags
+     */
+    public function getStreamTags()
+    {
+        return $this->streamTags;
+    }
+
+    /**
      * @return Chrisyue\PhpM3u8\KeyTags
      */
     public function getKeyTags()
@@ -113,6 +123,7 @@ class Segment extends AbstractContainer
     protected function getComponents()
     {
         return [
+            $this->streamTags,
             $this->keyTags,
             $this->extinfTag,
             $this->byteRangeTag,
