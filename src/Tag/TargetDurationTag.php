@@ -33,11 +33,14 @@ class TargetDurationTag extends AbstractTag
 
     public function dump()
     {
+        if (empty($this->targetDuration) && $this->targetDuration !== '0') {
+            return;
+        }
         return sprintf('%s:%d', self::TAG_IDENTIFIER, $this->targetDuration);
     }
 
     protected function read($line)
     {
-        $this->targetDuration = (int) self::extractValue($line);
+        $this->targetDuration = self::extractValue($line);
     }
 }
