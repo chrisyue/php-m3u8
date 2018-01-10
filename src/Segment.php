@@ -14,13 +14,19 @@ namespace Chrisyue\PhpM3u8;
 class Segment extends AbstractContainer
 {
     private $extinfTag;
+
     private $byteRangeTag;
+
     private $discontinuityTag;
+
     private $programDateTimeTag;
+
     private $keyTags;
+
     private $uri;
 
     private $mediaSequence;
+
     private $discontinuitySequence;
 
     public function __construct($m3u8Version = null)
@@ -110,14 +116,6 @@ class Segment extends AbstractContainer
     public function getProgramDateTimeTag()
     {
         return $this->programDateTimeTag;
-    }
-
-    /**
-     * @param Tag\ProgramDateTimeTag $programDateTimeTag
-     */
-    public function setProgramDateTimeTag(Tag\ProgramDateTimeTag $programDateTimeTag)
-    {
-        $this->programDateTimeTag = $programDateTimeTag;
     }
 
     /**

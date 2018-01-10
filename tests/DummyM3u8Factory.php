@@ -39,6 +39,7 @@ class DummyM3u8Factory
         $segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
         $segment->getByteRangeTag()->setLength(10000)->setOffset(100);
         $segment->getUri()->setUri('stream33.ts');
+        $segment->getProgramDateTimeTag()->setProgramDateTime(new \DateTime('2010-02-19T14:54:23.031+08:00'));
         $m3u8->getSegments()->add($segment);
 
         $segment = new Segment($version);
@@ -63,6 +64,7 @@ class DummyM3u8Factory
 #EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12,hello world
 #EXT-X-BYTERANGE:10000@100
+#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+08:00
 stream33.ts
 #EXTINF:10,
 #EXT-X-DISCONTINUITY
@@ -80,6 +82,7 @@ M3U8;
 #EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12.000,hello world
 #EXT-X-BYTERANGE:10000@100
+#EXT-X-PROGRAM-DATE-TIME:2010-02-19T14:54:23.031+08:00
 stream33.ts
 #EXTINF:10.000,
 #EXT-X-DISCONTINUITY

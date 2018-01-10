@@ -111,7 +111,7 @@ $m3u8->getEndlistTag()->setEndless(true);
 $segment = new Segment($version);
 $segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
 $segment->getByteRangeTag()->setLength(10000)->setOffset(100);
-$segment->getProgramDateTimeTag()->setProgramDateTime('2010-02-19T14:54:23.031+08:00');
+$segment->getProgramDateTimeTag()->setProgramDateTime(new \DateTime('2:00 pm'));
 $segment->getUri()->setUri('stream33.ts');
 $m3u8->getSegments()->add($segment);
 

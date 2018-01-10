@@ -14,7 +14,9 @@ namespace Chrisyue\PhpM3u8\Tag;
 class ExtinfTag extends AbstractTag
 {
     private $duration;
+
     private $title;
+
     private $m3u8Version;
 
     const TAG_IDENTIFIER = '#EXTINF';

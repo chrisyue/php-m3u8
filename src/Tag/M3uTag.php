@@ -20,7 +20,7 @@ class M3uTag implements DumpableInterface
     public function readLines(array &$lines)
     {
         $firstLine = $lines[0];
-        if ($firstLine !== self::TAG_IDENTIFIER) {
+        if (self::TAG_IDENTIFIER !== $firstLine) {
             throw new \InvalidArgumentException('The first line of a M3u8 must be "#EXTM3U"');
         }
 

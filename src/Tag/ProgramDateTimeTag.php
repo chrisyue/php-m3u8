@@ -11,9 +11,6 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-/**
- * Class ProgramDateTimeTag.
- */
 class ProgramDateTimeTag extends AbstractTag
 {
     use SingleValueTagTrait;
@@ -26,11 +23,11 @@ class ProgramDateTimeTag extends AbstractTag
     private $programDateTime;
 
     /**
-     * @param string $programDateTime
+     * @param \DateTime $programDateTime
      *
-     * @return $this
+     * @return self
      */
-    public function setProgramDateTime($programDateTime)
+    public function setProgramDateTime(\DateTime $programDateTime)
     {
         $this->programDateTime = $programDateTime;
 
@@ -38,7 +35,7 @@ class ProgramDateTimeTag extends AbstractTag
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getProgramDateTime()
     {
@@ -50,7 +47,17 @@ class ProgramDateTimeTag extends AbstractTag
      */
     public function dump()
     {
-        return sprintf('%s:%d', self::TAG_IDENTIFIER, $this->programDateTime);
+        if (null === $this->programDateTime) {
+            return;
+        }
+
+        if (version_compare(phpversion(), '7.0.0') >= 0) {
+            return sprintf('%s:%s', self::TAG_IDENTIFIER, $this->programDateTime->format('Y-m-d\TH:i:s.vP'));
+        }
+
+        $dateString = substr($this->programDateTime->format('Y-m-d\TH:i:s.u'), 0, -3);
+
+        return sprintf('%s:%s%s', self::TAG_IDENTIFIER, $dateString, $this->programDateTime->format('P'));
     }
 
     /**
@@ -58,6 +65,6 @@ class ProgramDateTimeTag extends AbstractTag
      */
     protected function read($line)
     {
-        $this->programDateTime = self::extractValue($line);
+        $this->programDateTime = new \DateTime(self::extractValue($line));
     }
 }
