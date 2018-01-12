@@ -14,12 +14,19 @@ namespace Chrisyue\PhpM3u8;
 class Segment extends AbstractContainer
 {
     private $extinfTag;
+
     private $byteRangeTag;
+
     private $discontinuityTag;
+
+    private $programDateTimeTag;
+
     private $keyTags;
+
     private $uri;
 
     private $mediaSequence;
+
     private $discontinuitySequence;
 
     public function __construct($m3u8Version = null)
@@ -27,6 +34,7 @@ class Segment extends AbstractContainer
         $this->extinfTag = new Tag\ExtinfTag($m3u8Version);
         $this->byteRangeTag = new Tag\ByteRangeTag();
         $this->discontinuityTag = new Tag\DiscontinuityTag();
+        $this->programDateTimeTag = new Tag\ProgramDateTimeTag();
         $this->keyTags = new KeyTags();
         $this->uri = new Uri();
     }
@@ -103,6 +111,14 @@ class Segment extends AbstractContainer
     }
 
     /**
+     * @return Tag\ProgramDateTimeTag
+     */
+    public function getProgramDateTimeTag()
+    {
+        return $this->programDateTimeTag;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
@@ -117,6 +133,7 @@ class Segment extends AbstractContainer
             $this->extinfTag,
             $this->byteRangeTag,
             $this->discontinuityTag,
+            $this->programDateTimeTag,
             $this->uri,
         ];
     }
