@@ -3,8 +3,6 @@ PHP M3u8
 
 M3u8 file parser / dumper
 
-v2.1.0
-
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a/big.png)](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a)
 
 [![Latest Stable Version](https://poser.pugx.org/chrisyue/php-m3u8/v/stable)](https://packagist.org/packages/chrisyue/php-m3u8)
@@ -78,8 +76,8 @@ According to [HLS draft version 23](https://tools.ietf.org/html/draft-pantos-htt
     - [x] EXT-X-BYTERANGE
     - [x] EXT-X-DISCONTINUITY
     - [x] EXT-X-KEY
+    - [x] EXT-X-PROGRAM-DATE-TIME
     - [ ] EXT-X-MAP
-    - [ ] EXT-X-PROGRAM-DATE-TIME
     - [ ] EXT-X-DATERANGE
 * Media Playlist Tags
     - [x] EXT-X-TARGETDURATION
@@ -111,6 +109,7 @@ $m3u8->getEndlistTag()->setEndless(true);
 $segment = new Segment($version);
 $segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
 $segment->getByteRangeTag()->setLength(10000)->setOffset(100);
+$segment->getProgramDateTimeTag()->setProgramDateTime(new \DateTime('2:00 pm'));
 $segment->getUri()->setUri('stream33.ts');
 $m3u8->getSegments()->add($segment);
 

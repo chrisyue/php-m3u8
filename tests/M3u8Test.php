@@ -37,6 +37,7 @@ class M3u8Test extends TestCase
         $this->assertEquals(10000, $segment->getByteRangeTag()->getLength());
         $this->assertEquals(100, $segment->getByteRangeTag()->getOffset());
         $this->assertFalse($segment->isDiscontinuity());
+        $this->assertEquals(new \DateTime('2010-02-19T14:54:23.031+08:00'), $segment->getProgramDateTimeTag()->getProgramDateTime());
 
         $segment = $m3u8->getSegments()->offsetGet(1);
         $this->assertEquals(10, $segment->getExtinfTag()->getDuration());

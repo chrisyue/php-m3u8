@@ -14,6 +14,7 @@ namespace Chrisyue\PhpM3u8;
 class Segments implements DumpableInterface, \Iterator, \ArrayAccess
 {
     private $segments = [];
+
     private $m3u8;
 
     private $position = 0;

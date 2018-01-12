@@ -14,11 +14,17 @@ namespace Chrisyue\PhpM3u8;
 class M3u8 extends AbstractContainer
 {
     private $m3uTag;
+
     private $versionTag;
+
     private $targetDurationTag;
+
     private $mediaSequenceTag;
+
     private $discontinuitySequenceTag;
+
     private $segments;
+
     private $endlistTag;
 
     public function __construct()

@@ -14,6 +14,7 @@ namespace Chrisyue\PhpM3u8\Tag;
 class ByteRangeTag extends AbstractTag
 {
     private $length;
+
     private $offset;
 
     const TAG_IDENTIFIER = '#EXT-X-BYTERANGE';

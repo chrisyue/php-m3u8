@@ -14,6 +14,7 @@ namespace Chrisyue\PhpM3u8;
 class KeyTags implements DumpableInterface, \Iterator, \ArrayAccess
 {
     private $tags = [];
+
     private $position;
 
     public function rewind()
