@@ -50,7 +50,7 @@ class ProgramDateTimeTag extends AbstractTag
      */
     public function dump()
     {
-        return sprintf('%s:%d', self::TAG_IDENTIFIER, $this->programDateTime);
+        return sprintf('%s:%s', self::TAG_IDENTIFIER, $this->programDateTime);
     }
 
     /**
