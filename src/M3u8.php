@@ -126,10 +126,10 @@ class M3u8 extends AbstractContainer
         return [
             $this->m3uTag,
             $this->versionTag,
-            $this->playlistTypeTag,
             $this->targetDurationTag,
             $this->mediaSequenceTag,
             $this->discontinuitySequenceTag,
+            $this->playlistTypeTag,
             $this->segments,
             $this->endlistTag,
         ];

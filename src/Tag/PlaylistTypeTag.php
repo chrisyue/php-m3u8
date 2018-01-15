@@ -15,32 +15,33 @@ class PlaylistTypeTag extends AbstractTag
 {
     use SingleValueTagTrait;
 
-    private $playlist_type;
+    private $playlistType;
 
     const TAG_IDENTIFIER = '#EXT-X-PLAYLIST-TYPE';
 
-    public function setPlaylistType($playlist_type)
+    public function setPlaylistType($playlistType)
     {
-        $this->playlist_type = $playlist_type;
+        $this->playlistType = $playlistType;
 
         return $this;
     }
 
     public function getPlaylistType()
     {
-        return $this->playlist_type;
+        return $this->playlistType;
     }
 
     public function dump()
     {
-        if (empty($this->playlist_type)) {
+        if (null === $this->playlistType) {
             return;
         }
-        return sprintf('%s:%s', self::TAG_IDENTIFIER, $this->playlist_type);
+
+        return sprintf('%s:%s', self::TAG_IDENTIFIER, $this->playlistType);
     }
 
     protected function read($line)
     {
-        $this->playlist_type = (string) self::extractValue($line);
+        $this->playlistType = (string) self::extractValue($line);
     }
 }

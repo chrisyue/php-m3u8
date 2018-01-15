@@ -11,9 +11,9 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class StreamTag extends AbstractTag
+class StreamInfTag extends AbstractTag
 {
-    use SingleValueTagTrait;
+    use AttributesValueTagTrait;
 
     const TAG_IDENTIFIER = '#EXT-X-STREAM-INF';
 
@@ -126,12 +126,14 @@ class StreamTag extends AbstractTag
             }
 
             if ('codecs' === $prop) {
-                $attrs[] = sprintf('%s="%s"', strtoupper($prop), $value);
+                $attrs[] = sprintf('%s="%s"', strtoupper($prop), implode(',', $value));
+
                 continue;
             }
 
             if ('programId' === $prop) {
                 $attrs[] = sprintf('%s=%s', 'PROGRAM-ID', $value);
+
                 continue;
             }
 
@@ -147,25 +149,23 @@ class StreamTag extends AbstractTag
 
     protected function read($line)
     {
-        $attrs = preg_split("/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/", self::extractValue($line));
-        $attributes = [];
-        foreach ($attrs as $attr) {
-            list($key, $value) = explode('=', $attr);
-            $attributes[$key] = trim($value);
-        }
+        $attributes = self::extractAttributes($line);
 
         foreach (get_object_vars($this) as $prop => $value) {
             $key = strtoupper($prop);
             if (isset($attributes[$key])) {
                 if ('codecs' === $prop) {
-                    $this->$prop = trim($attributes[$key], '",');
+                    $this->codecs = explode(',', trim($attributes[$key], '"'));
+
                     continue;
                 }
-                $this->$prop = trim($attributes[$key], ',');
+
+                $this->$prop = $attributes[$key];
             }
         }
+
         if (isset($attributes['PROGRAM-ID'])) {
-            $this->programId = trim($attributes['PROGRAM-ID'], ',');
+            $this->programId = $attributes['PROGRAM-ID'];
         }
     }
 }

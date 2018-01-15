@@ -157,7 +157,7 @@ class KeyTag extends AbstractTag
             }
 
             if ('keyFormatVersions' === $prop) {
-                $attrs[] = sprintf('%s="%s"', strtoupper($prop), implode('/', $value));
+                $attrs[] = sprintf('KEYFORMATVERSIONS="%s"', implode('/', $value));
 
                 continue;
             }
@@ -186,7 +186,7 @@ class KeyTag extends AbstractTag
                 }
 
                 if ('keyFormatVersions' === $prop) {
-                    $this->$prop = explode('/', trim($attributes[$key], '"'));
+                    $this->keyFormatVersions = explode('/', trim($attributes[$key], '"'));
 
                     continue;
                 }

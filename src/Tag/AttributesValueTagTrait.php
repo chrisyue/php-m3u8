@@ -19,10 +19,9 @@ trait AttributesValueTagTrait
     {
         $attrsText = self::extractValue($line);
 
-        $attrs = explode(',', $attrsText);
-
+        preg_match_all('/(?<=^|,)[A-Z0-9-]+=("?).+?\1(?=,|$)/', $attrsText, $matches);
         $attributes = [];
-        foreach ($attrs as $attr) {
+        foreach ($matches[0] as $attr) {
             list($key, $value) = explode('=', $attr);
             $attributes[$key] = trim($value);
         }
