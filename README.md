@@ -62,6 +62,16 @@ $segment->getDuration();
 $segment->getMediaSequence();
 ```
 
+After 2.3.0, it's available to parse and dump some master playlist tags:
+
+```php
+$m3u8->getSegments()[0]->getStreamInf()->getProgramId();
+```
+
+`Segment` is defined as "A container which has an URI", so not only media segment is a `Segment`,
+but also stream inf in master playlist. Yes I know, it seems wired to call a stream inf `Segment`,
+this problem will be solved in 3.x which I am already working on.
+
 *for more inforamation please check the `M3u8`, `Segments`, `Segment` API under `\Chrisyue\M3u8`*.
 
 #### Supported Tags
