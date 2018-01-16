@@ -45,6 +45,16 @@ class M3u8Test extends TestCase
         $this->assertTrue($segment->isDiscontinuity());
 
         $this->assertEquals(22, $m3u8->getDuration());
+
+        $content = DummyM3u8Factory::createM3u8Content(3, true);
+        $m3u8 = new M3u8();
+        $m3u8->read($content);
+
+        $segment = $m3u8->getSegments()->offsetGet(0);
+        $this->assertEquals(1, $segment->getStreamInfTag()->getProgramId());
+        $this->assertEquals(1500, $segment->getStreamInfTag()->getBandwidth());
+        $this->assertEquals('1280x720', $segment->getStreamInfTag()->getResolution());
+        $this->assertEquals(['avc1.42e00a', 'mp4a.40.2'], $segment->getStreamInfTag()->getCodecs());
     }
 
     public function testDump()
@@ -52,5 +62,9 @@ class M3u8Test extends TestCase
         $m3u8 = DummyM3u8Factory::createM3u8(3);
 
         $this->assertEquals(DummyM3u8Factory::createM3u8Content(3), $m3u8->dump());
+
+        $m3u8 = DummyM3u8Factory::createM3u8(3, true);
+
+        $this->assertEquals(DummyM3u8Factory::createM3u8Content(3, true), $m3u8->dump());
     }
 }
