@@ -17,17 +17,31 @@ use Chrisyue\PhpM3u8\Tag\KeyTag;
 
 class DummyM3u8Factory
 {
-    public static function createM3u8($version = 3)
+    public static function createM3u8($version = 3, $isMasterPlaylist = false)
     {
+        if ($isMasterPlaylist) {
+            $m3u8 = new M3u8();
+            $m3u8->getVersionTag()->setVersion($version);
+            $segment = new Segment($version);
+            $segment->getStreamInfTag()->setProgramId(1)
+                ->setBandwidth(1500)
+                ->setResolution('1280x720')
+                ->setCodecs(['avc1.42e00a', 'mp4a.40.2']);
+            $segment->getUri()->setUri('http://example.com/low/index.m3u8');
+            $m3u8->getSegments()->add($segment);
+
+            return $m3u8;
+        }
+
         $m3u8 = new M3u8();
         $m3u8->getVersionTag()->setVersion($version);
         $m3u8->getMediaSequenceTag()->setMediaSequence(33);
         $m3u8->getDiscontinuitySequenceTag()->setDiscontinuitySequence(3);
         $m3u8->getTargetDurationTag()->setTargetDuration(12);
+        $m3u8->getPlaylistTypeTag()->setPlaylistType('VOD');
         $m3u8->getEndlistTag()->setEndless(true);
 
         $segment = new Segment($version);
-
         $keyTag = new KeyTag();
         $keyTag->setMethod('AES-128')->setUri('key')->setIV('0xF85A5066CCB442181ACACA2E862A34DC');
         $segment->getKeyTags()->add($keyTag);
@@ -51,8 +65,17 @@ class DummyM3u8Factory
         return $m3u8;
     }
 
-    public static function createM3u8Content($version = 3)
+    public static function createM3u8Content($version = 3, $isMasterPlaylist = false)
     {
+        if ($isMasterPlaylist) {
+            return <<<M3U8
+#EXTM3U
+#EXT-X-VERSION:$version
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1500,RESOLUTION=1280x720,CODECS="avc1.42e00a,mp4a.40.2"
+http://example.com/low/index.m3u8
+M3U8;
+        }
+
         if ($version < 3) {
             return <<<'M3U8'
 #EXTM3U
@@ -60,6 +83,7 @@ class DummyM3u8Factory
 #EXT-X-TARGETDURATION:12
 #EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
+#EXT-X-PLAYLIST-TYPE:VOD
 #EXT-X-KEY:METHOD=AES-128,URI="key",IV=0xF85A5066CCB442181ACACA2E862A34DC
 #EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12,hello world
@@ -78,6 +102,7 @@ M3U8;
 #EXT-X-TARGETDURATION:12
 #EXT-X-MEDIA-SEQUENCE:33
 #EXT-X-DISCONTINUITY-SEQUENCE:3
+#EXT-X-PLAYLIST-TYPE:VOD
 #EXT-X-KEY:METHOD=AES-128,URI="key",IV=0xF85A5066CCB442181ACACA2E862A34DC
 #EXT-X-KEY:METHOD=SAMPLE-AES,URI="key2",IV=0xF85A5066CCB442181ACACA2E862A34DC,KEYFORMAT="com.apple",KEYFORMATVERSIONS="1"
 #EXTINF:12.000,hello world

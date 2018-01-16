@@ -15,7 +15,7 @@ class MediaSequenceTag extends AbstractTag
 {
     use SingleValueTagTrait;
 
-    private $mediaSequence = 0;
+    private $mediaSequence;
 
     const TAG_IDENTIFIER = '#EXT-X-MEDIA-SEQUENCE';
 
@@ -33,11 +33,15 @@ class MediaSequenceTag extends AbstractTag
 
     public function dump()
     {
+        if (null === $this->mediaSequence) {
+            return;
+        }
+
         return sprintf('%s:%d', self::TAG_IDENTIFIER, $this->mediaSequence);
     }
 
     protected function read($line)
     {
-        $this->mediaSequence = (int) self::extractValue($line);
+        $this->mediaSequence = self::extractValue($line);
     }
 }

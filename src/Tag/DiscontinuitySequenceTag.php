@@ -15,7 +15,7 @@ class DiscontinuitySequenceTag extends AbstractTag
 {
     use SingleValueTagTrait;
 
-    private $discontinuitySequence = 0;
+    private $discontinuitySequence;
 
     const TAG_IDENTIFIER = '#EXT-X-DISCONTINUITY-SEQUENCE';
 
@@ -33,11 +33,15 @@ class DiscontinuitySequenceTag extends AbstractTag
 
     public function dump()
     {
+        if (null === $this->discontinuitySequence) {
+            return;
+        }
+
         return sprintf('%s:%d', self::TAG_IDENTIFIER, $this->discontinuitySequence);
     }
 
     protected function read($line)
     {
-        $this->discontinuitySequence = (int) self::extractValue($line);
+        $this->discontinuitySequence = self::extractValue($line);
     }
 }

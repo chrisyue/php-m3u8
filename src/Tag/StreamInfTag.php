@@ -11,45 +11,40 @@
 
 namespace Chrisyue\PhpM3u8\Tag;
 
-class KeyTag extends AbstractTag
+class StreamInfTag extends AbstractTag
 {
     use AttributesValueTagTrait;
 
-    const TAG_IDENTIFIER = '#EXT-X-KEY';
+    const TAG_IDENTIFIER = '#EXT-X-STREAM-INF';
 
     /**
      * @var string
      */
-    private $method;
+    private $programId;
 
     /**
      * @var string
      */
-    private $uri;
+    private $bandwidth;
 
     /**
      * @var string
      */
-    private $iv;
+    private $resolution;
 
     /**
      * @var string
      */
-    private $keyFormat;
-
-    /**
-     * @var array
-     */
-    private $keyFormatVersions;
+    private $codecs;
 
     /**
      * @param string
      *
      * @return self
      */
-    public function setMethod($method)
+    public function setProgramId($programId)
     {
-        $this->method = $method;
+        $this->programId = $programId;
 
         return $this;
     }
@@ -57,9 +52,9 @@ class KeyTag extends AbstractTag
     /**
      * @return string
      */
-    public function getMethod()
+    public function getProgramId()
     {
-        return $this->method;
+        return $this->programId;
     }
 
     /**
@@ -67,9 +62,9 @@ class KeyTag extends AbstractTag
      *
      * @return self
      */
-    public function setUri($uri)
+    public function setBandwidth($bandwidth)
     {
-        $this->uri = $uri;
+        $this->bandwidth = $bandwidth;
 
         return $this;
     }
@@ -77,9 +72,9 @@ class KeyTag extends AbstractTag
     /**
      * @return string
      */
-    public function getUri()
+    public function getBandwidth()
     {
-        return $this->uri;
+        return $this->bandwidth;
     }
 
     /**
@@ -87,9 +82,9 @@ class KeyTag extends AbstractTag
      *
      * @return self
      */
-    public function setIv($iv)
+    public function setResolution($resolution)
     {
-        $this->iv = $iv;
+        $this->resolution = $resolution;
 
         return $this;
     }
@@ -97,9 +92,9 @@ class KeyTag extends AbstractTag
     /**
      * @return string
      */
-    public function getIv()
+    public function getResolution()
     {
-        return $this->iv;
+        return $this->resolution;
     }
 
     /**
@@ -107,9 +102,9 @@ class KeyTag extends AbstractTag
      *
      * @return self
      */
-    public function setKeyFormat($keyFormat)
+    public function setCodecs($codecs)
     {
-        $this->keyFormat = $keyFormat;
+        $this->codecs = $codecs;
 
         return $this;
     }
@@ -117,29 +112,9 @@ class KeyTag extends AbstractTag
     /**
      * @return string
      */
-    public function getKeyFormat()
+    public function getCodecs()
     {
-        return $this->keyFormat;
-    }
-
-    /**
-     * @param array
-     *
-     * @return self
-     */
-    public function setKeyFormatVersions(array $keyFormatVersions)
-    {
-        $this->keyFormatVersions = $keyFormatVersions;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getKeyFormatVersions()
-    {
-        return $this->keyFormatVersions;
+        return $this->codecs;
     }
 
     public function dump()
@@ -150,14 +125,14 @@ class KeyTag extends AbstractTag
                 continue;
             }
 
-            if ('uri' === $prop || 'keyFormat' === $prop) {
-                $attrs[] = sprintf('%s="%s"', strtoupper($prop), $value);
+            if ('codecs' === $prop) {
+                $attrs[] = sprintf('%s="%s"', strtoupper($prop), implode(',', $value));
 
                 continue;
             }
 
-            if ('keyFormatVersions' === $prop) {
-                $attrs[] = sprintf('KEYFORMATVERSIONS="%s"', implode('/', $value));
+            if ('programId' === $prop) {
+                $attrs[] = sprintf('%s=%s', 'PROGRAM-ID', $value);
 
                 continue;
             }
@@ -179,20 +154,18 @@ class KeyTag extends AbstractTag
         foreach (get_object_vars($this) as $prop => $value) {
             $key = strtoupper($prop);
             if (isset($attributes[$key])) {
-                if ('uri' === $prop || 'keyFormat' === $prop) {
-                    $this->$prop = trim($attributes[$key], '"');
-
-                    continue;
-                }
-
-                if ('keyFormatVersions' === $prop) {
-                    $this->keyFormatVersions = explode('/', trim($attributes[$key], '"'));
+                if ('codecs' === $prop) {
+                    $this->codecs = explode(',', trim($attributes[$key], '"'));
 
                     continue;
                 }
 
                 $this->$prop = $attributes[$key];
             }
+        }
+
+        if (isset($attributes['PROGRAM-ID'])) {
+            $this->programId = $attributes['PROGRAM-ID'];
         }
     }
 }
