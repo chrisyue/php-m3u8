@@ -142,10 +142,10 @@ class Segment extends AbstractContainer
         return [
             $this->streamInfTag,
             $this->keyTags,
-            $this->extinfTag,
             $this->byteRangeTag,
             $this->discontinuityTag,
             $this->programDateTimeTag,
+            $this->extinfTag,
             $this->uri,
         ];
     }
