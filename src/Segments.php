@@ -122,8 +122,8 @@ class Segments implements DumpableInterface, \Iterator, \ArrayAccess
 
     public function readLines(array &$lines)
     {
-        $mediaSequence = $this->m3u8->getMediaSequence();
-        $discontinuitySequence = $this->m3u8->getDiscontinuitySequence();
+        $mediaSequence = (int) $this->m3u8->getMediaSequence();
+        $discontinuitySequence = (int) $this->m3u8->getDiscontinuitySequence();
         while (true) {
             $segment = new Segment($this->m3u8->getVersion());
             $segment->readLines($lines);
