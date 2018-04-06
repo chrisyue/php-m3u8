@@ -65,7 +65,7 @@ $segment->getMediaSequence();
 After 2.3.0, it's available to parse and dump some master playlist tags:
 
 ```php
-$m3u8->getSegments()[0]->getStreamInf()->getProgramId();
+$m3u8->getSegments()[0]->getStreamInfTag()->getProgramId();
 ```
 
 `Segment` is defined as "A container which has an URI", so not only media segment is a `Segment`,
