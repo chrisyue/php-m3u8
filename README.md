@@ -1,29 +1,21 @@
 PHP M3u8
 ========
 
-M3u8 file parser / dumper
+An M3u8 parser / dumper framework.
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a/big.png)](https://insight.sensiolabs.com/projects/f04296f1-1621-4af0-8346-fd3379f34a5a)
+**Warning: you are visiting the very experimental branch, this branch is for the contributors only!**
 
-[![Latest Stable Version](https://poser.pugx.org/chrisyue/php-m3u8/v/stable)](https://packagist.org/packages/chrisyue/php-m3u8)
-[![License](https://poser.pugx.org/chrisyue/php-m3u8/license)](https://packagist.org/packages/chrisyue/php-m3u8)
-[![Total Downloads](https://poser.pugx.org/chrisyue/php-m3u8/downloads)](https://packagist.org/packages/chrisyue/php-m3u8)
-[![Build Status](https://travis-ci.org/chrisyue/php-m3u8.svg?branch=develop)](https://travis-ci.org/chrisyue/php-m3u8)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chrisyue/php-m3u8/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/chrisyue/php-m3u8/?branch=develop)
-[![Code Coverage](https://scrutinizer-ci.com/g/chrisyue/php-m3u8/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/chrisyue/php-m3u8/?branch=develop)
-[![StyleCI](https://styleci.io/repos/52257600/shield)](https://styleci.io/repos/52257600)
+To get the ready-to-use code, please visit [master](../../../tree/master) branch.
 
-Installation
-------------
+Why would I like to make a new version?
+---------------------------------------
 
-```
-$ composer require 'chrisyue/php-m3u8'
-```
+I'd like to separate the parse/dump ability from the model classes(to meet the Single Responsibility Principle), 
+and also I'd like the parser/dumper could read some configuration from the config files know how to parse/dump a 
+specific tag. I think it could be cool because the configurations could also be treated as a M3u8 documentation.
 
-Usage
------
-
-### Parse
+How to Use
+----------
 
 ```php
 $m3u8Content = <<<'M3U8'
@@ -41,42 +33,23 @@ stream14.ts
 stream15.ts
 M3U8;
 
-$m3u8 = new M3u8();
-$m3u8->read($m3u8Content);
+// parse
+$parser = new Chrisyue\PhpM3u8\Facade\ParserFacade();
+$result = $parser->parse(new Chrisyue\PhpM3u8\Stream\TextStream($m3u8Content));
+
+var_export($result);
+
+// dump
+$text = new TextStream();
+$dumper = new DumperFacade();
+$dumper->dump($result, $text);
+
+echo $text;
 ```
-
-now you can get information from $m3u8
-
-```php
-$m3u8->getVersion();
-$m3u8->getTargetDuration();
-$m3u8->getDuration();
-
-// get certain media segment inforatiom
-$segment = $m3u8->getSegments()->offsetGet(0);
-// or
-$segment = $m3u8->getSegments()[0];
-
-// get information from $segment
-$segment->getDuration();
-$segment->getMediaSequence();
-```
-
-After 2.3.0, it's available to parse and dump some master playlist tags:
-
-```php
-$m3u8->getSegments()[0]->getStreamInfTag()->getProgramId();
-```
-
-`Segment` is defined as "A container which has an URI", so not only media segment is a `Segment`,
-but also stream inf in master playlist. Yes I know, it seems wired to call a stream inf `Segment`,
-this problem will be solved in 3.x which I am already working on.
-
-*for more inforamation please check the `M3u8`, `Segments`, `Segment` API under `\Chrisyue\M3u8`*.
 
 #### Supported Tags
 
-According to [HLS draft version 23](https://tools.ietf.org/html/draft-pantos-http-live-streaming-23)
+According to [RFC8216](https://tools.ietf.org/html/rfc8216)
 
 * Basic Tags
     - [x] EXTM3U
@@ -85,48 +58,23 @@ According to [HLS draft version 23](https://tools.ietf.org/html/draft-pantos-htt
     - [x] EXTINF
     - [x] EXT-X-BYTERANGE
     - [x] EXT-X-DISCONTINUITY
-    - [x] EXT-X-KEY
+    - [ ] EXT-X-KEY
     - [x] EXT-X-PROGRAM-DATE-TIME
     - [ ] EXT-X-MAP
-    - [ ] EXT-X-DATERANGE
+    - [x] EXT-X-DATERANGE
 * Media Playlist Tags
     - [x] EXT-X-TARGETDURATION
     - [x] EXT-X-MEDIA-SEQUENCE
     - [x] EXT-X-DISCONTINUITY-SEQUENCE
     - [x] EXT-X-ENDLIST
     - [x] EXT-X-PLAYLIST-TYPE
-    - [ ] EXT-X-I-FRAMES-ONLY
+    - [x] EXT-X-I-FRAMES-ONLY
 * Master Playlist Tags
-    - [ ] EXT-X-MEDIA
+    - [x] EXT-X-MEDIA
     - [x] EXT-X-STREAM-INF
-    - [ ] EXT-X-I-FRAME-STREAM-INF
-    - [ ] EXT-X-SESSION-DATA
+    - [x] EXT-X-I-FRAME-STREAM-INF
+    - [x] EXT-X-SESSION-DATA
     - [ ] EXT-X-SESSION-KEY
 * Media or Master Playlist Tags
-    - [ ] EXT-X-INDEPENDENT-SEGMENTS
-    - [ ] EXT-X-START
-
-### Dump
-
-```php
-$m3u8 = new M3u8();
-$m3u8->getVersionTag()->setVersion(3);
-$m3u8->getMediaSequenceTag()->setMediaSequence(33);
-$m3u8->getDiscontinuitySequenceTag()->setDiscontinuitySequence(3);
-$m3u8->getTargetDurationTag()->setTargetDuration(12);
-$m3u8->getEndlistTag()->setEndless(true);
-
-$segment = new Segment($version);
-$segment->getExtinfTag()->setDuration(12)->setTitle('hello world');
-$segment->getByteRangeTag()->setLength(10000)->setOffset(100);
-$segment->getProgramDateTimeTag()->setProgramDateTime(new \DateTime('2:00 pm'));
-$segment->getUri()->setUri('stream33.ts');
-$m3u8->getSegments()->add($segment);
-
-echo $m3u8->dump();
-```
-
-### To Contributors
-
-Please follow the [gitflow](http://nvie.com/posts/a-successful-git-branching-model/) work flow
-to add a new feature, or fix bugs.
+    - [x] EXT-X-INDEPENDENT-SEGMENTS
+    - [x] EXT-X-START
