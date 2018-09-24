@@ -6,10 +6,12 @@
     "authors": [{
         "name": "chrisyue",
         "email": "blizzchris@gmail.com",
-        "homepage": "http://chrisyue.com"
+        "homepage": "https://chrisyue.com"
     }],
     "keywords": [
-        "m3u8"
+        "m3u8",
+        "parser",
+        "dumper"
     ],
     "license": [
         "MIT"
@@ -18,18 +20,22 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "sllh/php-cs-fixer-styleci-bridge": "^2.1",
-        "friendsofphp/php-cs-fixer": "^1.13",
-        "phpunit/phpunit": "^4.8"
+        "friendsofphp/php-cs-fixer": "^2",
+        "phpunit/phpunit": "^4"
     },
     "autoload": {
         "psr-4": {
-            "Chrisyue\\PhpM3u8\\" : "src"
+            "Chrisyue\\PhpM3u8\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Chrisyue\\PhpM3u8\\Test\\": "tests"
         }
     },
     "extra": {
         "branch-alias" : {
-            "dev-master" : "2.3.x-dev"
+            "dev-master" : "3.0.x-dev"
         }
     }
 }

@@ -6,16 +6,10 @@ php:
   - 5.6
   - 7.0
   - 7.1
-
-sudo: false
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
+  - 7.2
 
 install: composer update --prefer-dist
 
-script: if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then vendor/bin/phpunit --coverage-clover=coverage.clover; else vendor/bin/phpunit; fi
-
-after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+script:
+    - vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+    - vendor/bin/phpunit
