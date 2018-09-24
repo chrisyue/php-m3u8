@@ -16,13 +16,12 @@ use Chrisyue\PhpM3u8\Definition\TagDefinitions;
 use Chrisyue\PhpM3u8\Line\Lines;
 use Chrisyue\PhpM3u8\Parser\DataBuilder;
 use Chrisyue\PhpM3u8\Parser\Parser;
-use Chrisyue\PhpM3u8\Stream\StreamInterface;
 
 class ParserFacade
 {
     private $parser;
 
-    public function parse(StreamInterface $stream)
+    public function parse(\Iterator $stream)
     {
         if (null === $this->parser) {
             $rootPath = realpath(__DIR__.'/../..');

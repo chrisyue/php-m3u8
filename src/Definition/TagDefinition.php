@@ -15,26 +15,26 @@ use Chrisyue\PhpM3u8\Config;
 
 class TagDefinition
 {
-    private $property;
+    private $tag;
 
     private $config;
 
     private $attributeTypes;
 
-    public function __construct($property, Config $config)
+    public function __construct($tag, Config $config)
     {
-        if (!is_string($property)) {
-            throw new \InvalidArgumentException('$property can only be string, got %s', var_export($property));
+        if (!is_string($tag)) {
+            throw new \InvalidArgumentException('$tag can only be string, got %s', var_export($tag));
         }
 
-        $this->property = $property;
+        $this->tag = $tag;
 
         $this->config = $config;
     }
 
-    public function getProperty()
+    public function getTag()
     {
-        return $this->property;
+        return $this->tag;
     }
 
     public function getValueType()
@@ -47,11 +47,6 @@ class TagDefinition
         }
 
         return $type;
-    }
-
-    public function getTagName()
-    {
-        return $this->config->get('tag');
     }
 
     public function isMultiple()

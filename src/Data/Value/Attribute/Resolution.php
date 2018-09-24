@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Value\Attribute;
+namespace Chrisyue\PhpM3u8\Data\Value\Attribute;
 
 class Resolution
 {

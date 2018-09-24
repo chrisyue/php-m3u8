@@ -33,11 +33,11 @@ class Dumper
         $this->valueDumpers = $valueDumpers;
     }
 
-    public function dumpToLines(\ArrayObject $data, Lines $lines)
+    public function dumpToLines(\ArrayAccess $data, Lines $lines)
     {
         $lines->add(new Line('EXTM3U', true));
-        $this->iterateProperties(
-            $this->tagDefinitions->getHeadProperties(),
+        $this->iterateTags(
+            $this->tagDefinitions->getHeadTags(),
             $data,
             $lines,
             function (TagDefinition $tagDefinition) {
@@ -52,26 +52,26 @@ class Dumper
         }
 
         foreach ($data['mediaSegments'] as $mediaSegment) {
-            $this->iterateProperties($this->tagDefinitions->getMediaSegmentProperties(), $mediaSegment, $lines);
+            $this->iterateTags($this->tagDefinitions->getMediaSegmentTags(), $mediaSegment, $lines);
 
             $lines->add(new Line(null, $mediaSegment['uri']));
         }
 
-        $this->iterateProperties($this->tagDefinitions->getFootProperties(), $data, $lines);
+        $this->iterateTags($this->tagDefinitions->getFootTags(), $data, $lines);
     }
 
-    private function iterateProperties(
-        array $properties,
-        \ArrayObject $data,
+    private function iterateTags(
+        array $tags,
+        \ArrayAccess $data,
         Lines $lines
     ) {
-        foreach ($properties as $property) {
-            if (!isset($data[$property])) {
+        foreach ($tags as $tag) {
+            if (!isset($data[$tag])) {
                 continue;
             }
 
-            $definition = $this->tagDefinitions->get($property);
-            $value = $data[$property];
+            $definition = $this->tagDefinitions->get($tag);
+            $value = $data[$tag];
 
             if (!$definition->isMultiple()) {
                 $this->dumpAndAddToLines($definition, $value, $lines);
@@ -103,7 +103,7 @@ class Dumper
 
     private function dumpAndAddToLines(TagDefinition $definition, $value, Lines $lines)
     {
-        $lines->add(new Line($definition->getTagName(), $this->dumpValue($definition, $value)));
+        $lines->add(new Line($definition->getTag(), $this->dumpValue($definition, $value)));
 
         if ($definition->isUriAware()) {
             $lines->add(new Line(null, $value['uri']));

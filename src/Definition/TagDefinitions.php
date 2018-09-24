@@ -17,80 +17,63 @@ class TagDefinitions
 {
     private $definitions;
 
-    private $tagPropertyMap;
+    private $headTags;
 
-    private $headProperties;
+    private $mediaSegmentTags;
 
-    private $mediaSegmentProperties;
+    private $footTags;
 
-    private $footProperties;
-
-    public function __construct($definitions)
+    public function __construct(array $definitions)
     {
-        foreach ($definitions as $property => $definition) {
-            if (!isset($definition['tag'])) {
-                throw new DefinitionException('every tag definition must contain "tag"');
-            }
-
-            $this->tagPropertyMap[$definition['tag']] = $property;
-
+        foreach ($definitions as $tag => $definition) {
             $position = $definition['position'];
             if ('media-segment' === $definition['category']) {
-                $this->mediaSegmentProperties[$definition['position']] = $property;
+                $this->mediaSegmentTags[$definition['position']] = $tag;
 
                 continue;
             }
 
             if (0 > $position) {
-                $this->headProperties[$position] = $property;
+                $this->headTags[$position] = $tag;
 
                 continue;
             }
 
-            $this->footProperties[$position] = $property;
+            $this->footTags[$position] = $tag;
         }
 
         $this->definitions = $definitions;
 
-        ksort($this->headProperties);
-        ksort($this->mediaSegmentProperties);
-        ksort($this->footProperties);
+        ksort($this->headTags);
+        ksort($this->mediaSegmentTags);
+        ksort($this->footTags);
     }
 
-    public function findOneByTag($tag)
+    public function get($tag)
     {
         if (!is_string($tag)) {
             throw new \InvalidArgumentException('$tag can only be string, got %s', var_export($tag));
         }
 
-        if (isset($this->tagPropertyMap[$tag])) {
-            $property = $this->tagPropertyMap[$tag];
-
-            return new TagDefinition($property, new Config($this->definitions[$property]));
-        }
-    }
-
-    public function get($property)
-    {
-        if (!is_string($property)) {
-            throw new \InvalidArgumentException('$property can only be string, got %s', var_export($tag));
+        if (!isset($this->definitions[$tag])) {
+            return;
         }
 
-        return new TagDefinition($property, new Config($this->definitions[$property]));
+        return new TagDefinition($tag, new Config($this->definitions[$tag]));
     }
 
-    public function getHeadProperties()
+    public function getHeadTags()
     {
-        return $this->headProperties;
+        return $this->headTags;
     }
 
-    public function getMediaSegmentProperties()
+    public function getMediaSegmentTags()
     {
-        return $this->mediaSegmentProperties;
+        return $this->mediaSegmentTags;
     }
 
-    public function getFootProperties()
+    public function getFootTags()
     {
-        return $this->footProperties;
+        return $this->footTags;
     }
 }

@@ -42,7 +42,7 @@ class Parser
 
             $tag = $line->getTag();
 
-            $definition = $this->tagDefinitions->findOneByTag($tag);
+            $definition = $this->tagDefinitions->get($tag);
             if (null === $definition) {
                 continue;
             }

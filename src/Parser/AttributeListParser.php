@@ -24,6 +24,10 @@ class AttributeListParser
 
     public function parse($value, array $types)
     {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException(sprintf('$value can only be string, got %s', var_export($value)));
+        }
+
         preg_match_all('/(?<=^|,)[A-Z0-9-]+=("?).+?\1(?=,|$)/', $value, $matches);
 
         $result = new \ArrayObject();

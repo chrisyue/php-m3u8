@@ -11,47 +11,25 @@
 
 namespace Chrisyue\PhpM3u8\Stream;
 
-class TextStream implements StreamInterface
+class TextStream extends \ArrayIterator implements StreamInterface
 {
-    private $lines;
-
-    public function __construct($text = '')
+    public function __construct($text = null)
     {
-        $this->lines = explode("\n", $text);
-    }
+        $lines = [];
+        if (null !== $text) {
+            $lines = explode("\n", trim($text));
+        }
 
-    public function next()
-    {
-        next($this->lines);
-    }
-
-    public function valid()
-    {
-        return false !== current($this->lines);
-    }
-
-    public function current()
-    {
-        return current($this->lines);
-    }
-
-    public function key()
-    {
-        return key($this->lines);
-    }
-
-    public function rewind()
-    {
-        reset($this->lines);
+        parent::__construct($lines);
     }
 
     public function add($line)
     {
-        $this->lines[] = $line;
+        $this->append($line);
     }
 
     public function __toString()
     {
-        return implode("\n", $this->lines)."\n";
+        return implode("\n", $this->getArrayCopy())."\n";
     }
 }

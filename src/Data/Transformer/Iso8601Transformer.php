@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\DataTransformer;
+namespace Chrisyue\PhpM3u8\Data\Transformer;
 
 class Iso8601Transformer
 {
-    public function fromString($string)
+    public static function fromString($string)
     {
         return new \DateTime($string);
     }
 
-    public function toString(\DateTime $datetime): string
+    public static function toString(\DateTime $datetime)
     {
         $timezone = $datetime->format('P');
 

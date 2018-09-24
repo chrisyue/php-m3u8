@@ -10,10 +10,10 @@
  */
 
 use Chrisyue\PhpM3u8\Config;
-use Chrisyue\PhpM3u8\DataTransformer\Iso8601Transformer;
+use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
+use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
+use Chrisyue\PhpM3u8\Data\Value\Tag\Inf;
 use Chrisyue\PhpM3u8\Parser\AttributeListParser;
-use Chrisyue\PhpM3u8\Value\Tag\Byterange;
-use Chrisyue\PhpM3u8\Value\Tag\Inf;
 
 $attributeListParser = new AttributeListParser(
     new Config(require __DIR__.'/attributeValueParsers.php')
@@ -27,5 +27,5 @@ return [
     // special types
     'inf' => [Inf::class, 'fromString'],
     'byterange' => [Byterange::class, 'fromString'],
-    'datetime' => [new Iso8601Transformer(), 'fromString'],
+    'datetime' => [Iso8601Transformer::class, 'fromString'],
 ];

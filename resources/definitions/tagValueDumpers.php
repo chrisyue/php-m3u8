@@ -10,7 +10,7 @@
  */
 
 use Chrisyue\PhpM3u8\Config;
-use Chrisyue\PhpM3u8\DataTransformer\Iso8601Transformer;
+use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 use Chrisyue\PhpM3u8\Dumper\AttributeListDumper;
 
 $attributeListDumper = new AttributeListDumper(
@@ -25,5 +25,5 @@ return [
     // special types
     'inf' => 'strval', // Chrisyue\PhpM3u8\Value\Inf is __toString able
     'byterange' => 'strval', // Chrisyue\PhpM3u8\Value\Byterange is __toString able
-    'datetime' => [new Iso8601Transformer(), 'toString'],
+    'datetime' => [Iso8601Transformer::class, 'toString'],
 ];

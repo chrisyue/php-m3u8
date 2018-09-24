@@ -28,15 +28,15 @@ class Config
             ));
         }
 
-        if (!array_key_exists($key, $this->data)) {
-            if (null === $default) {
-                throw new \OutOfBoundsException(sprintf('Unknown config "%s"', $key));
-            }
-
-            return $default;
+        if (array_key_exists($key, $this->data)) {
+            return $this->data[$key];
         }
 
-        return $this->data[$key];
+        if (null === $default) {
+            throw new \OutOfBoundsException(sprintf('Unknown config "%s"', $key));
+        }
+
+        return $default;
     }
 
     protected function getData()

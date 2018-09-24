@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use Chrisyue\PhpM3u8\DataTransformer\Iso8601Transformer;
+use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 
 /*
  * @see https://tools.ietf.org/html/rfc8216#section-4.2
@@ -25,5 +25,5 @@ return [
     'enumerated-string' => 'strval',
     'decimal-resolution' => 'strval', // Chrisyue\PhpM3u8\Value\Attribute\Resolution is __toString able
     // special
-    'datetime' => [new Iso8601Transformer(), 'toString'],
+    'datetime' => [Iso8601Transformer::class, 'toString'],
 ];

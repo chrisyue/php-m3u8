@@ -21,7 +21,7 @@ class DumperFacade
 {
     private $dumper;
 
-    public function dump(\ArrayObject $data, StreamInterface $stream)
+    public function dump(\ArrayAccess $data, StreamInterface $stream)
     {
         if (null === $this->dumper) {
             $rootPath = realpath(__DIR__.'/../..');

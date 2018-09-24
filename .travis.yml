@@ -11,5 +11,5 @@ php:
 install: composer update --prefer-dist
 
 script:
-    - vendor/bin/php-cs-fixer fix --dry-run
-    # - vendor/bin/phpunit
+    - vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+    - vendor/bin/phpunit

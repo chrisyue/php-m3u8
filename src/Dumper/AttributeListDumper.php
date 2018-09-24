@@ -22,7 +22,7 @@ class AttributeListDumper
         $this->valueDumper = $valueDumper;
     }
 
-    public function dump(\ArrayObject $data, array $types)
+    public function dump(\ArrayAccess $data, array $types)
     {
         $result = [];
         foreach ($data as $key => $value) {

@@ -51,12 +51,12 @@ class DataBuilder
         }
 
         if ($definition->isMultiple()) {
-            $parent[$definition->getProperty()][] = $data;
+            $parent[$definition->getTag()][] = $data;
 
             return;
         }
 
-        $parent[$definition->getProperty()] = $data;
+        $parent[$definition->getTag()] = $data;
     }
 
     public function getResult()

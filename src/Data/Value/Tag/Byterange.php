@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Value\Tag;
+namespace Chrisyue\PhpM3u8\Data\Value\Tag;
 
 class Byterange
 {
