@@ -19,16 +19,28 @@ class Inf
 
     private $version;
 
-    public function __construct($duration, string $title = null, $version = 6)
+    public function __construct($duration, $title = null, $version = 6)
     {
         $this->duration = +$duration;
-        $this->title = $title;
-        $this->version = $version;
+        if ($this->duration <= 0) {
+            throw new \InvalidArgumentException('$duration should be greater than 0');
+        }
+
+        $this->version = (int) $version;
+        if ($this->version < 2 || $this->version > 7) {
+            throw new \InvalidArgumentException(sprintf('$version should be an integer greater than 1 and less than 8'));
+        }
+
+        if (null === $title) {
+            return;
+        }
+
+        $this->title = (string) $title;
     }
 
-    public static function fromString(string $string)
+    public static function fromString($string)
     {
-        [$duration, $title] = explode(',', $string);
+        list($duration, $title) = explode(',', $string);
 
         return new self($duration, $title);
     }

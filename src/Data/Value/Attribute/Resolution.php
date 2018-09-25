@@ -17,15 +17,19 @@ class Resolution
 
     private $height;
 
-    public function __construct(int $width, int $height)
+    public function __construct($width, $height)
     {
-        $this->width = $width;
-        $this->height = $height;
+        $this->width = (int) $width;
+        $this->height = (int) $height;
+
+        if ($this->width < 1 || $this->height < 1) {
+            throw new \InvalidArgumentException('$width or $height should be an integer greater than 0');
+        }
     }
 
-    public static function fromString(string $string)
+    public static function fromString($string)
     {
-        [$width, $height] = explode('x', $string);
+        list($width, $height) = explode('x', $string);
 
         return new self($width, $height);
     }
