@@ -1,6 +1,5 @@
 composer.lock
 composer.phar
 phpunit.xml
-vendor
-tags*
 *.cache
+/vendor
