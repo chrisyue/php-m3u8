@@ -25,7 +25,7 @@ class Resolution
 
     public static function fromString(string $string)
     {
-        [$width, $height] = explode('x', $string);
+        list($width, $height) = explode('x', $string);
 
         return new self($width, $height);
     }

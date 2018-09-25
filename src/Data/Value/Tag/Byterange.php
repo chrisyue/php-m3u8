@@ -25,7 +25,7 @@ class Byterange
 
     public static function fromString(string $string)
     {
-        [$length, $offset] = array_pad(explode('@', $string), 2, null);
+        list($length, $offset) = array_pad(explode('@', $string), 2, null);
 
         return new self($length, $offset);
     }

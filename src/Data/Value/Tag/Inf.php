@@ -28,7 +28,7 @@ class Inf
 
     public static function fromString(string $string)
     {
-        [$duration, $title] = explode(',', $string);
+        list($duration, $title) = explode(',', $string);
 
         return new self($duration, $title);
     }
