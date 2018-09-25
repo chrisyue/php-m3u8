@@ -23,10 +23,6 @@ class Dumper
 
     private $valueDumpers;
 
-    private $currentUriAware;
-
-    private $isMasterPlaylist;
-
     public function __construct(TagDefinitions $tagDefinitions, Config $valueDumpers)
     {
         $this->tagDefinitions = $tagDefinitions;
@@ -39,12 +35,7 @@ class Dumper
         $this->iterateTags(
             $this->tagDefinitions->getHeadTags(),
             $data,
-            $lines,
-            function (TagDefinition $tagDefinition) {
-                if ('master-playlist' === $tagDefinition->getCategory()) {
-                    $this->isMasterPlaylist = true;
-                }
-            }
+            $lines
         );
 
         if (!isset($data['mediaSegments'])) {
@@ -90,7 +81,7 @@ class Dumper
         $valueType = $definition->getValueType();
         $dump = $this->valueDumpers->get($valueType);
 
-        if (!is_callable($dump)) {
+        if (!\is_callable($dump)) {
             return $value;
         }
 
