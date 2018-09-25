@@ -51,7 +51,7 @@ class Parser
             $value = $line->getValue();
 
             $parse = $this->valueParsers->get($valueType);
-            if (is_callable($parse)) {
+            if (\is_callable($parse)) {
                 $value = 'attribute-list' === $valueType ? $parse($value, $definition->getAttributeTypes()) : $parse($value);
             }
             $this->dataBuilder->addTag($definition, $value);

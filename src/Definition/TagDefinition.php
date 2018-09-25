@@ -23,8 +23,8 @@ class TagDefinition
 
     public function __construct($tag, Config $config)
     {
-        if (!is_string($tag)) {
-            throw new \InvalidArgumentException('$tag can only be string, got %s', var_export($tag));
+        if (!\is_string($tag)) {
+            throw new \InvalidArgumentException('$tag can only be string, got %s', \gettype($tag));
         }
 
         $this->tag = $tag;
@@ -40,7 +40,7 @@ class TagDefinition
     public function getValueType()
     {
         $type = $this->config->get('type');
-        if (is_array($type)) {
+        if (\is_array($type)) {
             $this->attributeTypes = $type;
 
             return 'attribute-list';

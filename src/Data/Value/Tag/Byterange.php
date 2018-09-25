@@ -17,13 +17,24 @@ class Byterange
 
     private $offset;
 
-    public function __construct(int $length, string $offset = null)
+    public function __construct($length, $offset = null)
     {
-        $this->length = $length;
-        $this->offset = $offset;
+        $this->length = (int) $length;
+        if ($this->length < 1) {
+            throw new \InvalidArgumentException('$length should be an integer greater than 0');
+        }
+
+        if (null === $offset) {
+            return;
+        }
+
+        $this->offset = (int) $offset;
+        if ($this->offset < 1) {
+            throw new \InvalidArgumentException('$offset should be an integer greater than 0');
+        }
     }
 
-    public static function fromString(string $string)
+    public static function fromString($string)
     {
         list($length, $offset) = array_pad(explode('@', $string), 2, null);
 

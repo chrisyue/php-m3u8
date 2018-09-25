@@ -22,7 +22,7 @@ class Config
 
     public function get($key, $default = null)
     {
-        if (!is_string($key)) {
+        if (!\is_string($key)) {
             throw new \InvalidArgumentException(
                 sprintf('$key can only be string, got %s', var_export($key, true)
             ));

@@ -51,8 +51,8 @@ class TagDefinitions
 
     public function get($tag)
     {
-        if (!is_string($tag)) {
-            throw new \InvalidArgumentException('$tag can only be string, got %s', var_export($tag));
+        if (!\is_string($tag)) {
+            throw new \InvalidArgumentException('$tag can only be string, got %s', \gettype($tag));
         }
 
         if (!isset($this->definitions[$tag])) {

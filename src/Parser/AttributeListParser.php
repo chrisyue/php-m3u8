@@ -24,8 +24,8 @@ class AttributeListParser
 
     public function parse($value, array $types)
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException(sprintf('$value can only be string, got %s', var_export($value)));
+        if (!\is_string($value)) {
+            throw new \InvalidArgumentException(sprintf('$value can only be string, got %s', \gettype($value)));
         }
 
         preg_match_all('/(?<=^|,)[A-Z0-9-]+=("?).+?\1(?=,|$)/', $value, $matches);
@@ -41,7 +41,7 @@ class AttributeListParser
 
             $type = $types[$name];
             $parse = $this->valueParsers->get($type);
-            if (is_callable($parse)) {
+            if (\is_callable($parse)) {
                 $result[$name] = $parse($value);
             }
         }
