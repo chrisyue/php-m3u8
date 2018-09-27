@@ -10,21 +10,25 @@
  */
 
 use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
-use Chrisyue\PhpM3u8\Data\Value\Attribute\Resolution;
 
 /*
  * @see https://tools.ietf.org/html/rfc8216#section-4.2
  */
 return [
-    'decimal-integer' => 'intval',
+    'decimal-integer' => 'strval',
     'hexadecimal-sequence' => 'strval',
-    'decimal-floating-point' => 'floatval',
-    'signed-decimal-floating-point' => 'floatval',
+    'decimal-floating-point' => 'strval',
+    'signed-decimal-floating-point' => 'strval',
     'quoted-string' => function ($value) {
-        return trim($value, '"');
+        return sprintf('%s', $value);
     },
     'enumerated-string' => 'strval',
-    'decimal-resolution' => [Resolution::class, 'fromString'],
+    'decimal-resolution' => 'strval', // Chrisyue\PhpM3u8\Value\Attribute\Resolution is __toString able
     // special
-    'datetime' => [Iso8601Transformer::class, 'fromString'],
+    'datetime' => function ($value) {
+        return sprintf('"%s"', Iso8601Transformer::toString($value));
+    },
+    'byterange' => function ($value) {
+        return sprintf('"%s"', $value);
+    },
 ];

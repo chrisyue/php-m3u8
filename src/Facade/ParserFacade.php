@@ -16,20 +16,21 @@ use Chrisyue\PhpM3u8\Definition\TagDefinitions;
 use Chrisyue\PhpM3u8\Line\Lines;
 use Chrisyue\PhpM3u8\Parser\DataBuilder;
 use Chrisyue\PhpM3u8\Parser\Parser;
+use Chrisyue\PhpM3u8\Stream\StreamInterface;
 
 class ParserFacade
 {
     private $parser;
 
-    public function parse(\Iterator $stream)
+    public function parse(StreamInterface $stream)
     {
         if (null === $this->parser) {
             $rootPath = realpath(__DIR__.'/../..');
-            $tagDefinitions = new TagDefinitions(require $rootPath.'/resources/definitions/tags.php');
+            $tagDefinitions = new TagDefinitions(require $rootPath.'/resources/tags.php');
 
             $this->parser = new Parser(
                 $tagDefinitions,
-                new Config(require $rootPath.'/resources/definitions/tagValueParsers.php'),
+                new Config(require $rootPath.'/resources/tagValueParsers.php'),
                 new DataBuilder()
             );
         }

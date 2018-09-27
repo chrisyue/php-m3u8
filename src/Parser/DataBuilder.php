@@ -15,9 +15,11 @@ use Chrisyue\PhpM3u8\Definition\TagDefinition;
 
 class DataBuilder
 {
-    private $currentUriAware;
+    private $currentMediaSegment;
 
     private $result;
+
+    private $lastAddedTag;
 
     public function __construct()
     {
@@ -26,29 +28,38 @@ class DataBuilder
 
     public function addUri($uri)
     {
-        if (null === $this->currentUriAware) {
-            throw new DataBuildingException('uri found, but doesn\'t know how to handle it');
+        if (null !== $this->currentMediaSegment) {
+            $this->currentMediaSegment['uri'] = $uri;
+            $this->currentMediaSegment = null;
+
+            return;
         }
 
-        $this->currentUriAware['uri'] = $uri;
-        $this->currentUriAware = null;
+        if ($this->lastAddedTag['definition']->isUriAware()) {
+            $this->lastAddedTag['value']['uri'] = $uri;
+
+            return;
+        }
+
+        throw new DataBuildingException('uri found, but doesn\'t know how to handle it');
     }
 
     public function addTag(TagDefinition $definition, $data)
     {
         $parent = $this->result;
-        if (null === $this->currentUriAware) {
-            if ('media-segment' === $definition->getCategory()) {
-                $this->currentUriAware = new \ArrayObject();
-                $this->result['mediaSegments'][] = $this->currentUriAware;
-            } elseif ($definition->isUriAware()) {
-                $this->currentUriAware = $data;
-            }
+        if ('media-segment' === $definition->getCategory() && null === $this->currentMediaSegment) {
+            $this->currentMediaSegment = new \ArrayObject();
+            $this->result['mediaSegments'][] = $this->currentMediaSegment;
         }
 
-        if ('media-segment' === $definition->getCategory()) {
-            $parent = $this->currentUriAware;
+        if (null !== $this->currentMediaSegment) {
+            $parent = $this->currentMediaSegment;
         }
+
+        $this->lastAddedTag = [
+            'definition' => $definition,
+            'value' => $data,
+        ];
 
         if ($definition->isMultiple()) {
             $parent[$definition->getTag()][] = $data;

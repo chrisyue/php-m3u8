@@ -25,11 +25,11 @@ class DumperFacade
     {
         if (null === $this->dumper) {
             $rootPath = realpath(__DIR__.'/../..');
-            $tagDefinitions = new TagDefinitions(require $rootPath.'/resources/definitions/tags.php');
+            $tagDefinitions = new TagDefinitions(require $rootPath.'/resources/tags.php');
 
             $this->dumper = new Dumper(
                 $tagDefinitions,
-                new Config(require $rootPath.'/resources/definitions/tagValueDumpers.php')
+                new Config(require $rootPath.'/resources/tagValueDumpers.php')
             );
         }
 
