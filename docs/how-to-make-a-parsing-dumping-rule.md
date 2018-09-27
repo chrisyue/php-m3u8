@@ -3,8 +3,8 @@ How to Make a Parsing/Dumping Rule
 
 If you've already checked the file
 [tagValueParsers.php](../resources/tagValueParsers.php), you could find that
-this file is a very simple "type => callable" rules which defines how to parse a
-certain tag type:
+this file contains very simple "type => callable" rules which define how to
+parse a certain tag type:
 
 ```php
 // resources/definitions/tagValueParsers.php
@@ -34,7 +34,7 @@ $definitions = [
 ```
 
 NOTE: the `attribute-list` type is defined as an array in `tags.php`, this
-array is as the 2nd parameter to the 'attribute-list' parsing/dumping callable.
+array is as the 2nd parameter to the `attribute-list` parsing/dumping callable.
 
 You could also check the [tagValueDumpers.php](../resources/tagValueDumpers.php)
 or [attributeValueParsers.php](../resources/attributeValueParsers.php),
@@ -46,5 +46,5 @@ an "M3U8 parser/dumper framework". If you try to parse/dump an very old version
 of M3U8 document, which may differ a lot from RFC8216, you could even make your
 own tag definitions/type parsing/dumping rules other than the built-in ones.
 
-Please check the built-in [supported tags](supported-tags.md) in current
+Check the built-in [supported tags](supported-tags.md) in current
 version.
