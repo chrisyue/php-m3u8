@@ -12,7 +12,7 @@ According to [RFC8216](https://tools.ietf.org/html/rfc8216)
     - [x] EXT-X-DISCONTINUITY
     - [ ] EXT-X-KEY
     - [x] EXT-X-PROGRAM-DATE-TIME
-    - [ ] EXT-X-MAP
+    - [x] EXT-X-MAP
     - [x] EXT-X-DATERANGE
 * Media Playlist Tags
     - [x] EXT-X-TARGETDURATION

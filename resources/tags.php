@@ -81,8 +81,8 @@ $definitions = [
             'SUBTITLES' => 'quoted-string',
             'CLOSED-CAPTIONS' => 'quoted-string',
         ],
-        'uriAware' => true,
         'position' => -1800,
+        'uriAware' => true,
     ],
     'EXT-X-I-FRAME-STREAM-INF' => [
         'category' => 'master-playlist',
@@ -119,29 +119,32 @@ $definitions = [
      *
      * @see https://tools.ietf.org/html/rfc8216#section-4.3.2
      */
-    'EXTINF' => [
+    'EXT-X-MAP' => [
         'category' => 'media-segment',
-        'type' => 'inf',
-        'position' => 1000,
+        'type' => [
+            'URI' => 'quoted-string',
+            'BYTERANGE' => 'byterange',
+        ],
+        'position' => 200,
     ],
     'EXT-X-BYTERANGE' => [
         'category' => 'media-segment',
         'type' => 'byterange',
-        'position' => 100,
+        'position' => 300,
     ],
     'EXT-X-DISCONTINUITY' => [
         'category' => 'media-segment',
-        'position' => 200,
+        'position' => 400,
         'type' => 'bool',
     ],
     'EXT-X-PROGRAM-DATE-TIME' => [
         'category' => 'media-segment',
-        'position' => 300,
+        'position' => 500,
         'type' => 'datetime',
     ],
     'EXT-X-DATERANGE' => [
         'category' => 'media-segment',
-        'position' => 400,
+        'position' => 600,
         'type' => [
             'ID' => 'quoted-string',
             'CLASS' => 'quoted-string',
@@ -154,6 +157,11 @@ $definitions = [
             'SCTE35-IN' => 'hexadecimal-sequence',
             'END-ON-NEXT' => 'enumerated-string',
         ],
+    ],
+    'EXTINF' => [
+        'category' => 'media-segment',
+        'type' => 'inf',
+        'position' => 1000,
     ],
 ];
 

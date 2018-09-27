@@ -10,7 +10,7 @@ It's easy to let PHP-M3U8 work with tags and attributes defined other than
 RFC8216. All you need to know is how to "define" a M3U8 tag.
 
 As you may know, a parser/dumper needs tag definition to work. the built-in
-definition file is located in `resources/definitions/tags.php`. If you've
+definition file is located in [tags.php](../resources/tags.php). If you've
 checked this file, you may find this file actually a M3U8 documentation written
 in PHP, take the `EXT-X-STREAM-INF` as an example:
 
@@ -65,7 +65,7 @@ An tag definition has these properties:
   than 0 will be dumped before media segment tags.
 
 So, to add the support of the `PROGRAM-ID` of `EXT-X-STREAM-INF`, all you have
-to do is to add the definition of "what PROGRAM-ID" is:
+to do is to define "what PROGRAM-ID" is:
 
 ```php
 $definitions = require 'path/to/definitions/tags.php';
@@ -81,6 +81,11 @@ $parser = new Parser(
 $parser->parse(new Chrisyue\PhpM3u8\Line\Lines(new Chrisyue\PhpM3u8\Stream\TextStream($m3u8)));
 ```
 
-Besides tag type, the attribute types are also customizable, for more
-information please check
+As you can see, those "definitions" could be considered as a brief HLS RFC
+document described in PHP, that's the purpose of PHP M3U8 version 3:
+**configuration as documentation**.
+
+Besides tag definition, the way you parse/dump a tag or an attribute is
+customizable. Please check
 [how to make a parsing/dumping rule](how-to-make-a-parsing-dumping-rule.md)
+to know more.
