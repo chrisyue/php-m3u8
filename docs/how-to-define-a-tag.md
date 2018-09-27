@@ -9,10 +9,10 @@ some tags or attributes which are already removed from RFC8216. For example,
 It's easy to let PHP-M3U8 work with tags and attributes defined other than
 RFC8216. All you need to know is how to "define" a M3U8 tag.
 
-As you may know, a parser/dumper needs tag definition to work. the built-in
+A playlist parser/dumper needs tag definitions to work. the built-in
 definition file is located in [tags.php](../resources/tags.php). If you've
-checked this file, you may find this file actually a M3U8 documentation written
-in PHP, take the `EXT-X-STREAM-INF` as an example:
+checked this file, you may find this file is actually a M3U8 documentation
+written in PHP, take the `EXT-X-STREAM-INF` as an example:
 
 ```php
 // resources/definitions/tags.php
@@ -52,7 +52,7 @@ An tag definition has these properties:
   `EXT-X-STREAM-INF` can appear many times in a master playlist. this property
   can be ommitted and the default value is `false`.
 - type: a tag value could be different type of values, the `EXT-X-VERSION` has
-  an int value, and the `EXT-X-STREAM-INF' has an attribute-list value.
+  an int value, and the `EXT-X-STREAM-INF` has an attribute-list value.
   Although `EXT-X-ENDLIST` has no value, it implies the value is a boolean.
   Check the tags definition files to know all the *built-in* types, yes, I've
   implied that you could define your own type too, check
