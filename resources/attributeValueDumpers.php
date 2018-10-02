@@ -20,7 +20,7 @@ return [
     'decimal-floating-point' => 'strval',
     'signed-decimal-floating-point' => 'strval',
     'quoted-string' => function ($value) {
-        return sprintf('%s', $value);
+        return sprintf('"%s"', $value);
     },
     'enumerated-string' => 'strval',
     'decimal-resolution' => 'strval', // Chrisyue\PhpM3u8\Value\Attribute\Resolution is __toString able

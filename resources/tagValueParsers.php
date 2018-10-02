@@ -10,13 +10,15 @@
  */
 
 use Chrisyue\PhpM3u8\Config;
+use Chrisyue\PhpM3u8\Data\Transformer\AttributeStringToArray;
 use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
 use Chrisyue\PhpM3u8\Data\Value\Tag\Inf;
 use Chrisyue\PhpM3u8\Parser\AttributeListParser;
 
 $attributeListParser = new AttributeListParser(
-    new Config(require __DIR__.'/attributeValueParsers.php')
+    new Config(require __DIR__.'/attributeValueParsers.php'),
+    new AttributeStringToArray()
 );
 
 return [
