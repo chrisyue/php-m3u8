@@ -12,37 +12,35 @@
 namespace Chrisyue\PhpM3u8\Parser;
 
 use Chrisyue\PhpM3u8\Config;
+use Chrisyue\PhpM3u8\Data\Transformer\AttributeStringToArray;
 
 class AttributeListParser
 {
     private $valueParsers;
 
-    public function __construct(Config $valueParsers)
+    private $attributeStringToArray;
+
+    public function __construct(Config $valueParsers, AttributeStringToArray $attributeStringToArray)
     {
         $this->valueParsers = $valueParsers;
+        $this->attributeStringToArray = $attributeStringToArray;
     }
 
-    public function parse($value, array $types)
+    public function parse($string, array $types)
     {
-        if (!\is_string($value)) {
-            throw new \InvalidArgumentException(sprintf('$value can only be string, got %s', \gettype($value)));
-        }
-
-        preg_match_all('/(?<=^|,)[A-Z0-9-]+=("?).+?\1(?=,|$)/', $value, $matches);
+        $attributeParse = $this->attributeStringToArray;
+        $attributes = $attributeParse($string);
 
         $result = new \ArrayObject();
-        foreach ($matches[0] as $attr) {
-            list($name, $value) = explode('=', $attr);
-            $result[$name] = $value;
-
-            if (!isset($types[$name])) {
+        foreach ($attributes as $key => $value) {
+            if (!isset($types[$key])) {
                 continue;
             }
 
-            $type = $types[$name];
+            $type = $types[$key];
             $parse = $this->valueParsers->get($type);
             if (\is_callable($parse)) {
-                $result[$name] = $parse($value);
+                $result[$key] = $parse($value);
             }
         }
 

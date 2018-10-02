@@ -10,7 +10,7 @@ According to [RFC8216](https://tools.ietf.org/html/rfc8216)
     - [x] EXTINF
     - [x] EXT-X-BYTERANGE
     - [x] EXT-X-DISCONTINUITY
-    - [ ] EXT-X-KEY
+    - [x] EXT-X-KEY
     - [x] EXT-X-PROGRAM-DATE-TIME
     - [x] EXT-X-MAP
     - [x] EXT-X-DATERANGE
@@ -26,7 +26,7 @@ According to [RFC8216](https://tools.ietf.org/html/rfc8216)
     - [x] EXT-X-STREAM-INF
     - [x] EXT-X-I-FRAME-STREAM-INF
     - [x] EXT-X-SESSION-DATA
-    - [ ] EXT-X-SESSION-KEY
+    - [x] EXT-X-SESSION-KEY
 * Media or Master Playlist Tags
     - [x] EXT-X-INDEPENDENT-SEGMENTS
     - [x] EXT-X-START

@@ -100,6 +100,12 @@ $definitions = [
         ],
         'position' => -1600,
     ],
+    'EXT-X-SESSION-KEY' => [
+        'category' => 'master-playlist',
+        // the type is defined at the end of this file.
+        'position' => -1500,
+        'multiple' => true,
+    ],
     // media or master playlist
     'EXT-X-INDEPENDENT-SEGMENTS' => [
         'category' => 'playlist',
@@ -119,6 +125,18 @@ $definitions = [
      *
      * @see https://tools.ietf.org/html/rfc8216#section-4.3.2
      */
+    'EXT-X-KEY' => [
+        'category' => 'media-segment',
+        'type' => [
+            'METHOD' => 'enumerated-string',
+            'URI' => 'quoted-string',
+            'IV' => 'hexadecimal-sequence',
+            'KEYFORMAT' => 'quoted-string',
+            'KEYFORMATVERSIONS' => 'quoted-string',
+        ],
+        'position' => 100,
+        'multiple' => true,
+    ],
     'EXT-X-MAP' => [
         'category' => 'media-segment',
         'type' => [
@@ -165,6 +183,7 @@ $definitions = [
     ],
 ];
 
+// EXT-X-I-FRAME-STREAM-INF type
 $definitions['EXT-X-I-FRAME-STREAM-INF']['type'] = $definitions['EXT-X-STREAM-INF']['type'];
 unset(
     $definitions['EXT-X-I-FRAME-STREAM-INF']['type']['FRAME-RATE'],
@@ -173,5 +192,8 @@ unset(
     $definitions['EXT-X-I-FRAME-STREAM-INF']['type']['CLOSED-CAPTIONS']
 );
 $definitions['EXT-X-I-FRAME-STREAM-INF']['type']['URI'] = 'quoted-string';
+
+// EXT-X-SESSION-KEY type
+$definitions['EXT-X-SESSION-KEY']['type'] = $definitions['EXT-X-KEY']['type'];
 
 return $definitions;
