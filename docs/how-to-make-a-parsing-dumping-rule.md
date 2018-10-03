@@ -4,7 +4,7 @@ How to Make a Parsing/Dumping Rule
 If you've already checked the file
 [tagValueParsers.php](../resources/tagValueParsers.php), you could find that
 this file contains very simple "type => callable" rules which define how to
-parse a certain tag type:
+parse tag types:
 
 ```php
 // resources/definitions/tagValueParsers.php
@@ -42,9 +42,9 @@ or [attributeValueParsers.php](../resources/attributeValueParsers.php),
 idea how to define a tag/attribute parser/dumper.
 
 As you could see, PHP M3U8 is not only a parser/dumper, you can consider it as
-an "M3U8 parser/dumper framework". If you try to parse/dump an very old version
-of M3U8 document, which may differ a lot from RFC8216, you could even make your
-own tag definitions/type parsing/dumping rules other than the built-in ones.
+an "M3U8 parser/dumper framework". If you try to parse/dump an very
+old/experimental version of M3U8 document, which may differ a lot from RFC 8216,
+or you want to generate different data structures other than the built-in ones,
+all you gonna do is to make your own tag definitions or parsing/dumping rules.
 
-Check the built-in [supported tags](supported-tags.md) in current
-version.
+Check the built-in [supported tags](supported-tags.md) in current version.
