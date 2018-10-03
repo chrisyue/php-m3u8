@@ -1,7 +1,7 @@
 Supported Tags
 ==============
 
-According to [RFC8216](https://tools.ietf.org/html/rfc8216)
+According to [RFC 8216](https://tools.ietf.org/html/rfc8216)
 
 * Basic Tags
     - [x] EXTM3U

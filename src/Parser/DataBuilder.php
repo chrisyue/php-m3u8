@@ -21,11 +21,6 @@ class DataBuilder
 
     private $lastAddedTag;
 
-    public function __construct()
-    {
-        $this->result = new \ArrayObject();
-    }
-
     public function addUri($uri)
     {
         if (null !== $this->currentMediaSegment) {
@@ -73,5 +68,12 @@ class DataBuilder
     public function getResult()
     {
         return $this->result;
+    }
+
+    public function reset()
+    {
+        $this->currentMediaSegment = null;
+        $this->result = new \ArrayObject();
+        $this->lastAddedTag = null;
     }
 }

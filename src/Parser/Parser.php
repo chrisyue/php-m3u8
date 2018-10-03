@@ -33,6 +33,7 @@ class Parser
 
     public function parse(Lines $lines)
     {
+        $this->dataBuilder->reset();
         foreach ($lines as $line) {
             if ($line->isType(Line::TYPE_URI)) {
                 $this->dataBuilder->addUri($line->getValue());
