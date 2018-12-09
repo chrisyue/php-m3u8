@@ -8,6 +8,7 @@ PHP M3u8
 
 An M3u8 parser / dumper.
 
-Now fully supports for [RFC 8216](docs/supported-tags.md).
+By default, it fully supports for [RFC 8216](docs/supported-tags.md), however
+it can support for non standard M3U(8) too, with little effort.
 
-Read the [docs](docs/index.md) for a quickstart and features.
+Please read the [docs](docs/index.md) for a quickstart and documentations.
