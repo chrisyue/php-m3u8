@@ -99,9 +99,9 @@ And run:
 php demo.php
 ```
 
-As a "Facade" will hide too much details, if you take a look of those facade
+As a "Facade" hides too much details, if you take a look of those facade
 classes, you'll notice that the real parser/dumper will take a "tag definitions"
-and a "parsing/dumping rules" as it's dependencies. "definitions" or "rules" are
+and a "parsing/dumping rules" as it's dependencies. "definitions" and "rules" are
 actually "configuration". All these "configuration"s are written in PHP. You may
 want to modify those configuration files to meet your needs. For more
 information, see [how to define a tag](how-to-define-a-tag.md) and
