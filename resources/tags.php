@@ -65,6 +65,7 @@ $definitions = [
             'CHANNELS' => 'quoted-string',
         ],
         'position' => -1900,
+        'multiple' => true,
     ],
     'EXT-X-STREAM-INF' => [
         'category' => 'master-playlist',
