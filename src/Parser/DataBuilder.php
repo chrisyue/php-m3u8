@@ -42,12 +42,12 @@ class DataBuilder
     public function addTag(TagDefinition $definition, $data)
     {
         $parent = $this->result;
-        if ('media-segment' === $definition->getCategory() && null === $this->currentMediaSegment) {
-            $this->currentMediaSegment = new \ArrayObject();
-            $this->result['mediaSegments'][] = $this->currentMediaSegment;
-        }
+        if ('media-segment' === $definition->getCategory()) {
+	    if (null === $this->currentMediaSegment) {
+		$this->currentMediaSegment = new \ArrayObject();
+		$this->result['mediaSegments'][] = $this->currentMediaSegment;
+	    }
 
-        if (null !== $this->currentMediaSegment) {
             $parent = $this->currentMediaSegment;
         }
 

@@ -79,13 +79,15 @@ $mediaPlaylist = $parser->parse(new TextStream($m3u8Content));
 var_export($mediaPlaylist);
 echo PHP_EOL;
 
-// PARSING MEDIA PLAYLIST DEMO END
-
 echo '*** Dumping media playlist... ***', PHP_EOL;
 $text = new TextStream();
 $dumper->dump($mediaPlaylist, $text);
 
 echo $text, PHP_EOL;
+
+// MEDIA PLAYLIST DEMO END
+
+// MASTER PLAYLIST DEMO END
 
 echo '*** Parsing master playlist... ***', PHP_EOL;
 $m3u8Content = <<<'M3U8'
@@ -104,10 +106,6 @@ $masterPlaylist = $parser->parse(new TextStream($m3u8Content));
 
 var_export($masterPlaylist);
 echo PHP_EOL;
-
-// PARSING MASTER PLAYLIST DEMO END
-
-// DUMPING DEMO START
 
 echo '*** Dumping media playlist... ***', PHP_EOL;
 $text = new TextStream();
