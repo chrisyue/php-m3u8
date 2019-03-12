@@ -43,10 +43,10 @@ class DataBuilder
     {
         $parent = $this->result;
         if ('media-segment' === $definition->getCategory()) {
-	    if (null === $this->currentMediaSegment) {
-		$this->currentMediaSegment = new \ArrayObject();
-		$this->result['mediaSegments'][] = $this->currentMediaSegment;
-	    }
+            if (null === $this->currentMediaSegment) {
+                $this->currentMediaSegment = new \ArrayObject();
+                $this->result['mediaSegments'][] = $this->currentMediaSegment;
+            }
 
             $parent = $this->currentMediaSegment;
         }
