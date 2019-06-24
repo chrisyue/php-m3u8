@@ -87,7 +87,7 @@ echo $text, PHP_EOL;
 
 // MEDIA PLAYLIST DEMO END
 
-// MASTER PLAYLIST DEMO END
+// MASTER PLAYLIST DEMO START
 
 echo '*** Parsing master playlist... ***', PHP_EOL;
 $m3u8Content = <<<'M3U8'
