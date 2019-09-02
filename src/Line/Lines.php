@@ -15,6 +15,7 @@ use Chrisyue\PhpM3u8\Stream\StreamInterface;
 
 class Lines implements \Iterator
 {
+
     private $stream;
 
     public function __construct(StreamInterface $stream)
@@ -25,17 +26,38 @@ class Lines implements \Iterator
     public function current()
     {
         static $text, $line;
-        if ($this->stream->current() !== $text) {
-            $text = $this->stream->current();
-            $line = Line::fromString($text);
+        while ($this->valid()) {
+            $current = $this->stream->current();
+            if ($this->isvalidLine($current)) {
+                if ($current !== $text) {
+                    $text = $current;
+                    $line = Line::fromString($text);
+                }
+
+                return $line;
+            }
+            $this->next();
         }
 
-        return $line;
+        return;
     }
 
     public function add(Line $line)
     {
-        $this->stream->add((string) $line);
+        $this->stream->add((string)$line);
+    }
+
+    public function isvalidLine($lineString)
+    {
+        if (empty($lineString)) {
+            return false;
+        }
+        if ('#' === $lineString[0] && '#EXT' !== substr($lineString, 0, 4)) {
+            // https://github.com/chrisyue/php-m3u8/issues/54 https://tools.ietf.org/html/rfc8216#section-4.1
+            return false;
+        }
+
+        return true;
     }
 
     public function next()
@@ -46,7 +68,7 @@ class Lines implements \Iterator
         }
 
         $line = trim($this->stream->current());
-        if (empty($line)) {
+        if (!$this->isvalidLine($line)) {
             $this->next();
         }
     }
