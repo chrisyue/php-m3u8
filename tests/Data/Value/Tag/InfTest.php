@@ -35,6 +35,7 @@ class InfTest extends TestCase
     public function dataProvider()
     {
         return [
+            ['0.000,', new Inf(0)],
             ['10.001,', new Inf(10.001)],
             ['10.002,hello world', new Inf(10.002, 'hello world')],
         ];

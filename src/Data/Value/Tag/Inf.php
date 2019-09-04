@@ -22,8 +22,8 @@ class Inf
     public function __construct($duration, $title = null, $version = 6)
     {
         $this->duration = +$duration;
-        if ($this->duration <= 0) {
-            throw new \InvalidArgumentException('$duration should be greater than 0');
+        if ($this->duration < 0) {
+            throw new \InvalidArgumentException('$duration should not be less than 0');
         }
 
         $this->version = (int) $version;
