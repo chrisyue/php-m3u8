@@ -17,6 +17,8 @@ class Lines implements \Iterator
 {
     private $stream;
 
+    private $current;
+
     public function __construct(StreamInterface $stream)
     {
         $this->stream = $stream;
@@ -24,13 +26,7 @@ class Lines implements \Iterator
 
     public function current()
     {
-        static $text, $line;
-        if ($this->stream->current() !== $text) {
-            $text = $this->stream->current();
-            $line = Line::fromString($text);
-        }
-
-        return $line;
+        return $this->current;
     }
 
     public function add(Line $line)
@@ -41,19 +37,27 @@ class Lines implements \Iterator
     public function next()
     {
         $this->stream->next();
-        if (!$this->stream->valid()) {
-            return;
-        }
-
-        $line = trim($this->stream->current());
-        if (empty($line)) {
-            $this->next();
-        }
     }
 
     public function valid()
     {
-        return $this->stream->valid();
+        $this->current = null;
+
+        while (null === $this->current && $this->stream->valid()) {
+            if ($this->stream->current()) {
+                $line = Line::fromString($this->stream->current());
+
+                if (null !== $line) {
+                    $this->current = $line;
+
+                    return true;
+                }
+            }
+
+            $this->stream->next();
+        }
+
+        return false;
     }
 
     public function rewind()
