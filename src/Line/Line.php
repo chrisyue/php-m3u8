@@ -41,7 +41,7 @@ class Line
             return new self(null, $line);
         }
 
-        if (substr($line, 0, 4) !== '#EXT') {
+        if ('#EXT' !== substr($line, 0, 4)) {
             return;
         }
 

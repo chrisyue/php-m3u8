@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PhpM3u8 package.
+ *
+ * (c) Chrisyue <https://chrisyue.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Chrisyue\PhpM3u8\Test\Line;
 
 use Chrisyue\PhpM3u8\Line\Line;
@@ -15,7 +24,7 @@ class LinesTest extends TestCase
         $stream->valid()->shouldBeCalledOnce()->willReturn(false);
         $lines = new Lines($stream->reveal());
 
-        $this->assertSame(false, $lines->valid());
+        $this->assertFalse($lines->valid());
 
         $tag = 'EXT-X-FOO:1';
         $stream = $this->prophesize(StreamInterface::class);
@@ -23,7 +32,7 @@ class LinesTest extends TestCase
         $stream->current()->shouldBeCalled()->willReturn($tag);
         $lines = new Lines($stream->reveal());
 
-        $this->assertEquals(true, $lines->valid());
+        $this->assertTrue($lines->valid());
         $this->assertEquals(Line::fromString($tag), $lines->current());
     }
 }
