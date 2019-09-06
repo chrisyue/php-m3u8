@@ -41,6 +41,10 @@ class Line
             return new self(null, $line);
         }
 
+        if ('#EXT' !== substr($line, 0, 4)) {
+            return;
+        }
+
         $line = ltrim($line, '#');
         if (empty($line)) {
             return;
