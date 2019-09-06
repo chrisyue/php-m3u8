@@ -41,8 +41,8 @@ class LineTest extends TestCase
     public function stringTransformationSamples()
     {
         return [
-            ['#foo:bar', new Line('foo', 'bar')],
-            ['#foo', new Line('foo', true)],
+            ['#foo:bar', null],
+            ['#EXT-FOO', new Line('EXT-FOO', true)],
             ['bar', new Line(null, 'bar')],
             [' ', null],
             ['#', null],
