@@ -50,6 +50,11 @@ class Inf
         return $this->duration;
     }
 
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
     public function getTitle()
     {
         return $this->title;
