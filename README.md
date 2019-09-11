@@ -56,7 +56,7 @@ echo '*** Parsing media playlist... ***', PHP_EOL;
 $m3u8Content = <<<'M3U8'
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-MEDIA-SEQUENCE:7794
+#EXT-X-MEDIA-SEQUENCE:77949999999
 #EXT-X-TARGETDURATION:15
 
 #EXT-X-KEY:METHOD=AES-128,URI="https://priv.example.com/key.php?r=52"
@@ -76,8 +76,24 @@ M3U8;
 
 $mediaPlaylist = $parser->parse(new TextStream($m3u8Content));
 
+// Now you can get some attributes or data easily
+/**
+ * @var ArrayObject
+ */
+$firstSegment = $mediaPlaylist['mediaSegments'][0];
+
+// EXTINF tag is a Chrisyue\PhpM3u8\Data\Value\Tag\Inf
+// for more information about tag value data type, please check the docs
+echo 'The 1st segment\'s duration is ', $firstSegment['EXTINF']->getDuration(), PHP_EOL;
+echo 'The version of this M3u8 is ', $mediaPlaylist['EXT-X-VERSION'], PHP_EOL;
+
+// or check what the whole result looks like
 var_export($mediaPlaylist);
 echo PHP_EOL;
+
+// change some values before dumping
+$firstSegment['uri'] = 'http://chrisyue.com/a.ts';
+$firstSegment['EXTINF']->setTitle('hi');
 
 echo '*** Dumping media playlist... ***', PHP_EOL;
 $text = new TextStream();
