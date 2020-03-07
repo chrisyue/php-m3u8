@@ -154,4 +154,5 @@ Thanks for your support :)
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=blizzchris@gmail.com&lc=US&item_name=Donation+for+PHP-M3U8&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
 
+<img width="150" height="150" alt="Wechat Donation" src="http://img.chrisyue.com/wx-reward-code.jpg">
 ![Wechat Donation](http://img.chrisyue.com/wx-reward-code.jpg)
