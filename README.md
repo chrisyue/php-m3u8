@@ -77,7 +77,7 @@ M3U8;
 
 $mediaPlaylist = $parser->parse(new TextStream($m3u8Content));
 
-// Now you can get some attributes or data easily
+// Now you can get some data from the playlist easily
 /**
  * @var ArrayObject
  */
@@ -86,9 +86,10 @@ $firstSegment = $mediaPlaylist['mediaSegments'][0];
 // EXTINF tag is a Chrisyue\PhpM3u8\Data\Value\Tag\Inf
 // for more information about tag value data type, please check the docs
 echo 'The 1st segment\'s duration is ', $firstSegment['EXTINF']->getDuration(), PHP_EOL;
-echo 'The version of this M3u8 is ', $mediaPlaylist['EXT-X-VERSION'], PHP_EOL;
+echo 'and the key URI is ', $firstSegment['EXT-X-KEY'][0]['URI'], PHP_EOL;
+echo 'The version of this M3U8 is ', $mediaPlaylist['EXT-X-VERSION'], PHP_EOL;
 
-// or check what the whole result looks like
+// check what the whole result looks like
 var_export($mediaPlaylist);
 echo PHP_EOL;
 
@@ -146,4 +147,11 @@ information, see
 - [How to Define A Tag](docs/how-to-define-a-tag.md)
 - [How to Make A Parsing/Dumping Rule](docs/how-to-make-a-parsing-dumping-rule.md)
 
+Donation
+--------
+
+Thanks for your support :)
+
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=blizzchris@gmail.com&lc=US&item_name=Donation+for+PHP-M3U8&no_note=0&cn=&currency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted)
+
+![Wechat Donation](http://img.chrisyue.com/wx-reward-code.jpg)
