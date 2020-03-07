@@ -75,6 +75,9 @@ http://media.example.com/fileSequence52-C.ts
 http://media.example.com/fileSequence53-A.ts
 M3U8;
 
+/**
+ * @var ArrayObject
+ */
 $mediaPlaylist = $parser->parse(new TextStream($m3u8Content));
 
 // Now you can get some data from the playlist easily
