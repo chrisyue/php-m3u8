@@ -80,7 +80,7 @@ $definitions = [
             'AUDIO' => 'quoted-string',
             'VIDEO' => 'quoted-string',
             'SUBTITLES' => 'quoted-string',
-            'CLOSED-CAPTIONS' => 'quoted-string',
+            'CLOSED-CAPTIONS' => 'closed-captions',
         ],
         'position' => -1800,
         'uriAware' => true,
