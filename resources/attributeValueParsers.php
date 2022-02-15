@@ -13,6 +13,10 @@ use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 use Chrisyue\PhpM3u8\Data\Value\Attribute\Resolution;
 use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
 
+$quotedStringParse = function ($value) {
+    return trim($value, '"');
+};
+
 /*
  * @see https://tools.ietf.org/html/rfc8216#section-4.2
  */
@@ -21,9 +25,7 @@ return [
     'hexadecimal-sequence' => 'strval',
     'decimal-floating-point' => 'floatval',
     'signed-decimal-floating-point' => 'floatval',
-    'quoted-string' => function ($value) {
-        return trim($value, '"');
-    },
+    'quoted-string' => $quotedStringParse,
     'enumerated-string' => 'strval',
     'decimal-resolution' => [Resolution::class, 'fromString'],
     // special
@@ -32,5 +34,12 @@ return [
     },
     'byterange' => function ($value) {
         return Byterange::fromString(trim($value, '"'));
+    },
+    'closed-captions' => function ($value) {
+        if ('NONE' === $value) {
+            return null;
+        }
+
+        return $quotedStringParse($value);
     },
 ];

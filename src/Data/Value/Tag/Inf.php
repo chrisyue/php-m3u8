@@ -28,7 +28,7 @@ class Inf
 
         $this->version = (int) $version;
         if ($this->version < 2 || $this->version > 7) {
-            throw new \InvalidArgumentException(sprintf('$version should be an integer greater than 1 and less than 8'));
+            throw new \InvalidArgumentException('$version should be an integer greater than 1 and less than 8');
         }
 
         if (null === $title) {

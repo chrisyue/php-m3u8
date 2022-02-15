@@ -1,0 +1,30 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        name: CI
+        strategy:
+            matrix:
+                php: [ '5.6', '7.0', '7.1', '7.2', '7.3' ]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Composer update
+              run: composer update --prefer-dist
+
+            - name: PHP CS check
+              run: vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --diff
+
+            - name: Tests
+              run: vendor/bin/phpunit
