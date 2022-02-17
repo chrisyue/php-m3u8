@@ -11,6 +11,10 @@
 
 use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 
+$quotedStringDump = function ($value) {
+    return sprintf('"%s"', $value);
+};
+
 /*
  * @see https://tools.ietf.org/html/rfc8216#section-4.2
  */
@@ -29,6 +33,13 @@ return [
         return sprintf('"%s"', Iso8601Transformer::toString($value));
     },
     'byterange' => function ($value) {
-        return sprintf('"%s"', $value);
+        return $quoteStringDump($value);
+    },
+    'closed-captions' => function ($value) {
+        if (null === $value) {
+            return 'NONE';
+        }
+
+        return $quotedStringDump($value);
     },
 ];
