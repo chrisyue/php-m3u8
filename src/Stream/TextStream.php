@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -23,7 +25,7 @@ class TextStream extends \ArrayIterator implements StreamInterface
         parent::__construct($lines);
     }
 
-    public function add($line)
+    public function add($line): void
     {
         $this->append($line);
     }

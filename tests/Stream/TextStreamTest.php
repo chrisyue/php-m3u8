@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -16,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class TextStreamTest extends TestCase
 {
-    public function testToString()
+    public function testToString(): void
     {
         $text = "first\nsecond";
         $this->assertSame($text."\n", (string) new TextStream($text));

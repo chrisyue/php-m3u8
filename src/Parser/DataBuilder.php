@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -21,7 +23,7 @@ class DataBuilder
 
     private $lastAddedTag;
 
-    public function addUri($uri)
+    public function addUri($uri): void
     {
         if (null !== $this->currentMediaSegment) {
             $this->currentMediaSegment['uri'] = $uri;
@@ -39,7 +41,7 @@ class DataBuilder
         throw new DataBuildingException('uri found, but doesn\'t know how to handle it');
     }
 
-    public function addTag(TagDefinition $definition, $data)
+    public function addTag(TagDefinition $definition, $data): void
     {
         $parent = $this->result;
         if ('media-segment' === $definition->getCategory()) {
@@ -70,7 +72,7 @@ class DataBuilder
         return $this->result;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->currentMediaSegment = null;
         $this->result = new \ArrayObject();

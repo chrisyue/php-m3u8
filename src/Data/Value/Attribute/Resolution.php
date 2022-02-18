@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -29,7 +31,7 @@ class Resolution
 
     public static function fromString($string)
     {
-        list($width, $height) = explode('x', $string);
+        [$width, $height] = explode('x', $string);
 
         return new self($width, $height);
     }

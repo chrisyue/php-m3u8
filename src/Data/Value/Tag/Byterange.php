@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -36,7 +38,7 @@ class Byterange
 
     public static function fromString($string)
     {
-        list($length, $offset) = array_pad(explode('@', $string), 2, null);
+        [$length, $offset] = array_pad(explode('@', $string), 2, null);
 
         return new self($length, $offset);
     }

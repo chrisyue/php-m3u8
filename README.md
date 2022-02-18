@@ -15,10 +15,11 @@ it can support for non standard M3U(8) with little effort.
 Installation
 ------------
 
-Use composer to require it, version 3 above is recommended.
+Use composer to require it:
 
 ```bash
-composer require 'chrisyue/php-m3u8:^3'
+composer require 'chrisyue/php-m3u8:^4' # PHP 7.4 or PHP 8.*
+composer require 'chrisyue/php-m3u8:^3' # PHP 5.6 or PHP 7.{0,1,2,3}
 ```
 
 Quickstart
@@ -29,7 +30,7 @@ Setup the demo project and install PHP M3U8 with it:
 ```bash
 mkdir demo
 cd demo
-composer require 'chrisyue/php-m3u8:^3'
+composer require 'chrisyue/php-m3u8:^4'
 ```
 
 Create a PHP script `demo.php` in project root
@@ -119,7 +120,7 @@ http://example.com/low.m3u8
 http://example.com/mid.m3u8
 #EXT-X-STREAM-INF:BANDWIDTH=7680000,AVERAGE-BANDWIDTH=6000000
 http://example.com/hi.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=65000,CODECS="mp4a.40.5"
+#EXT-X-STREAM-INF:BANDWIDTH=65000,CODECS="mp4a.40.5,CLOSED-CAPTIONS=NONE"
 http://example.com/audio-only.m3u8
 M3U8;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -18,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class LinesTest extends TestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $stream = $this->prophesize(StreamInterface::class);
         $stream->valid()->shouldBeCalledOnce()->willReturn(false);
