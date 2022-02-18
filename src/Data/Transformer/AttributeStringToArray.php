@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -23,7 +25,7 @@ class AttributeStringToArray
 
         $attrs = [];
         foreach ($matches[0] as $attr) {
-            list($key, $value) = explode('=', $attr, 2);
+            [$key, $value] = explode('=', $attr, 2);
             $attrs[$key] = $value;
         }
 

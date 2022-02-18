@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -19,7 +21,7 @@ class ByterangeTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testFromString($string, Byterange $byterange)
+    public function testFromString($string, Byterange $byterange): void
     {
         $this->assertEquals($byterange, Byterange::fromString($string));
     }
@@ -27,12 +29,12 @@ class ByterangeTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testToString($string, Byterange $byterange)
+    public function testToString($string, Byterange $byterange): void
     {
         $this->assertEquals($string, (string) $byterange);
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             ['2000', new Byterange(2000)],

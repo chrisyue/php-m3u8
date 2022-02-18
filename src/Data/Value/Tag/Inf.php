@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -40,7 +42,7 @@ class Inf
 
     public static function fromString($string)
     {
-        list($duration, $title) = explode(',', $string);
+        [$duration, $title] = explode(',', $string);
 
         return new self($duration, $title);
     }
@@ -50,7 +52,7 @@ class Inf
         return $this->duration;
     }
 
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }

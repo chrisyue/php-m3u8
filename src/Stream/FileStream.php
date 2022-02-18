@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -13,7 +15,7 @@ namespace Chrisyue\PhpM3u8\Stream;
 
 class FileStream extends \SplFileObject implements StreamInterface
 {
-    public function add($line)
+    public function add($line): void
     {
         $this->fwrite($line."\n");
     }

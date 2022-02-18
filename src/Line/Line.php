@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -13,8 +15,8 @@ namespace Chrisyue\PhpM3u8\Line;
 
 class Line
 {
-    const TYPE_URI = 'uri';
-    const TYPE_TAG = 'tag';
+    public const TYPE_URI = 'uri';
+    public const TYPE_TAG = 'tag';
 
     private $tag;
 
@@ -50,7 +52,7 @@ class Line
             return;
         }
 
-        list($tag, $value) = array_pad(explode(':', $line, 2), 2, true);
+        [$tag, $value] = array_pad(explode(':', $line, 2), 2, true);
 
         return new self($tag, $value);
     }

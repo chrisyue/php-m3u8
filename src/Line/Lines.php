@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -24,22 +26,23 @@ class Lines implements \Iterator
         $this->stream = $stream;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->current;
     }
 
-    public function add(Line $line)
+    public function add(Line $line): void
     {
         $this->stream->add((string) $line);
     }
 
-    public function next()
+    public function next(): void
     {
         $this->stream->next();
     }
 
-    public function valid()
+    public function valid(): bool
     {
         $this->current = null;
 
@@ -60,11 +63,12 @@ class Lines implements \Iterator
         return false;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->stream->rewind();
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->stream->key();
