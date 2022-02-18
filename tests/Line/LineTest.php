@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -19,7 +21,7 @@ class LineTest extends TestCase
     /**
      * @dataProvider stringTransformationSamples
      */
-    public function testFromString($string, $expected)
+    public function testFromString($string, $expected): void
     {
         $line = Line::fromString($string);
 
@@ -29,16 +31,18 @@ class LineTest extends TestCase
     /**
      * @dataProvider stringTransformationSamples
      */
-    public function testToString($string, Line $line = null)
+    public function testToString($string, Line $line = null): void
     {
         if (null === $line) {
+            $this->expectNotToPerformAssertions();
+
             return;
         }
 
         $this->assertEquals($string, (string) $line);
     }
 
-    public function stringTransformationSamples()
+    public function stringTransformationSamples(): array
     {
         return [
             ['#foo:bar', null],
@@ -52,12 +56,12 @@ class LineTest extends TestCase
     /**
      * @dataProvider typeSamples
      */
-    public function testIsType(Line $line, $type)
+    public function testIsType(Line $line, $type): void
     {
         $this->assertTrue($line->isType($type));
     }
 
-    public function typeSamples()
+    public function typeSamples(): array
     {
         return [
             [new Line('foo', 'bar'), Line::TYPE_TAG],

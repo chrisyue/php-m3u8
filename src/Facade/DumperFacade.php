@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -21,7 +23,7 @@ class DumperFacade
 {
     private $dumper;
 
-    public function dump(\ArrayAccess $data, StreamInterface $stream)
+    public function dump(\ArrayAccess $data, StreamInterface $stream): void
     {
         if (null === $this->dumper) {
             $rootPath = realpath(__DIR__.'/../..');

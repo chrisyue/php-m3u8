@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -19,7 +21,7 @@ class InfTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testFromString($string, Inf $inf)
+    public function testFromString($string, Inf $inf): void
     {
         $this->assertEquals($inf, Inf::fromString($string));
     }
@@ -27,12 +29,12 @@ class InfTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testToString($string, Inf $inf)
+    public function testToString($string, Inf $inf): void
     {
         $this->assertEquals($string, (string) $inf);
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             ['0.000,', new Inf(0)],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -19,7 +21,7 @@ class ResolutionTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testFromString($string, Resolution $resolution)
+    public function testFromString($string, Resolution $resolution): void
     {
         $this->assertEquals($resolution, Resolution::fromString($string));
     }
@@ -27,12 +29,12 @@ class ResolutionTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testToString($string, Resolution $resolution)
+    public function testToString($string, Resolution $resolution): void
     {
         $this->assertEquals($string, (string) $resolution);
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             ['800x600', new Resolution(800, 600)],

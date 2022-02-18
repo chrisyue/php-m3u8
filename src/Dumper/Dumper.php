@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -29,7 +31,7 @@ class Dumper
         $this->valueDumpers = $valueDumpers;
     }
 
-    public function dumpToLines(\ArrayAccess $data, Lines $lines)
+    public function dumpToLines(\ArrayAccess $data, Lines $lines): void
     {
         $lines->add(new Line('EXTM3U', true));
         $this->iterateTags(
@@ -55,7 +57,7 @@ class Dumper
         array $tags,
         \ArrayAccess $data,
         Lines $lines
-    ) {
+    ): void {
         foreach ($tags as $tag) {
             if (!isset($data[$tag])) {
                 continue;
@@ -92,7 +94,7 @@ class Dumper
         return $dump($value);
     }
 
-    private function dumpAndAddToLines(TagDefinition $definition, $value, Lines $lines)
+    private function dumpAndAddToLines(TagDefinition $definition, $value, Lines $lines): void
     {
         $lines->add(new Line($definition->getTag(), $this->dumpValue($definition, $value)));
 

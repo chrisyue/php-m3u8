@@ -11,10 +11,13 @@ EOF;
 
 $finder = PhpCsFixer\Finder::create()->in(__DIR__);
 
-return PhpCsFixer\Config::create()
-    ->setRules([
+$config = new PhpCsFixer\Config();
+return $config->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        '@PHP74Migration' => true,
+        '@PHP74Migration:risky' => true,
+        '@PHPUnit84Migration:risky' => true,
         'header_comment' => compact('header'),
         'ordered_imports' => true,
     ])

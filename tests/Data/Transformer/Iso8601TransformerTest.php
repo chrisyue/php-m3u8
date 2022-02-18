@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -16,14 +18,14 @@ use PHPUnit\Framework\TestCase;
 
 class Iso8601TransformerTest extends TestCase
 {
-    public function testFromString()
+    public function testFromString(): void
     {
         $string = '2018-01-01T01:02:03.002+08:00';
 
         $this->assertEquals(new \DateTime($string), Iso8601Transformer::fromString($string));
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $string = '2018-01-01T01:02:03.002+08:00';
         $datetime = new \DateTime($string);

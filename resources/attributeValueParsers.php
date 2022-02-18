@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -13,9 +15,7 @@ use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 use Chrisyue\PhpM3u8\Data\Value\Attribute\Resolution;
 use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
 
-$quotedStringParse = function ($value) {
-    return trim($value, '"');
-};
+$quotedStringParse = fn ($value) => trim($value, '"');
 
 /*
  * @see https://tools.ietf.org/html/rfc8216#section-4.2
@@ -29,12 +29,8 @@ return [
     'enumerated-string' => 'strval',
     'decimal-resolution' => [Resolution::class, 'fromString'],
     // special
-    'datetime' => function ($value) {
-        return Iso8601Transformer::fromString(trim($value, '"'));
-    },
-    'byterange' => function ($value) {
-        return Byterange::fromString(trim($value, '"'));
-    },
+    'datetime' => fn ($value) => Iso8601Transformer::fromString(trim($value, '"')),
+    'byterange' => fn ($value) => Byterange::fromString(trim($value, '"')),
     'closed-captions' => function ($value) {
         if ('NONE' === $value) {
             return null;

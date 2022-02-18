@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the PhpM3u8 package.
  *
@@ -16,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class AttributeStringToArrayTest extends TestCase
 {
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $attr2Array = new AttributeStringToArray();
 
