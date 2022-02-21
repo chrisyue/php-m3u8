@@ -32,10 +32,5 @@
         "psr-4": {
             "Chrisyue\\PhpM3u8\\Test\\": "tests"
         }
-    },
-    "extra": {
-        "branch-alias" : {
-            "dev-master" : "4.0.x-dev"
-        }
     }
 }
