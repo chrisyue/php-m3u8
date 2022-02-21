@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Data\Value\Tag;
+namespace Chrisyue\PhpM3u8\Data\Value;
 
 class Byterange
 {

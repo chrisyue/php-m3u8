@@ -23,13 +23,13 @@ return [
     'hexadecimal-sequence' => 'strval',
     'decimal-floating-point' => 'strval',
     'signed-decimal-floating-point' => 'strval',
-    'quoted-string' => fn ($value) => sprintf('"%s"', $value),
+    'quoted-string' => $quotedStringDump,
     'enumerated-string' => 'strval',
-    'decimal-resolution' => 'strval', // Chrisyue\PhpM3u8\Value\Attribute\Resolution is __toString able
+    'decimal-resolution' => 'strval', // Resolution is __toString able
     // special
-    'datetime' => fn ($value) => sprintf('"%s"', Iso8601Transformer::toString($value)),
-    'byterange' => fn ($value) => $quoteStringDump($value),
-    'closed-captions' => function ($value) {
+    'datetime' => fn ($value) => $quotedStringDump(Iso8601Transformer::toString($value)),
+    'byterange' => $quotedStringDump, // Byterange is __toString able
+    'closed-captions' => function ($value) use ($quotedStringDump) {
         if (null === $value) {
             return 'NONE';
         }

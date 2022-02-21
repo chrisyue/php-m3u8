@@ -31,7 +31,7 @@ return [
     // special
     'datetime' => fn ($value) => Iso8601Transformer::fromString(trim($value, '"')),
     'byterange' => fn ($value) => Byterange::fromString(trim($value, '"')),
-    'closed-captions' => function ($value) {
+    'closed-captions' => function ($value) use ($quotedStringParse) {
         if ('NONE' === $value) {
             return null;
         }
