@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Chrisyue\PhpM3u8\Test\Data\Value\Tag;
+namespace Chrisyue\PhpM3u8\Test\Data\Value;
 
-use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
+use Chrisyue\PhpM3u8\Data\Value\Byterange;
 use PHPUnit\Framework\TestCase;
 
 class ByterangeTest extends TestCase
