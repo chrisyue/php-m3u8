@@ -26,5 +26,8 @@ jobs:
             - name: PHP CS check
               run: vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run --diff
 
-            - name: Tests
+            - name: Unit Tests
               run: vendor/bin/phpunit
+
+            - name: Demo Run
+              run: php demo/demo.php

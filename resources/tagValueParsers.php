@@ -14,7 +14,7 @@ declare(strict_types=1);
 use Chrisyue\PhpM3u8\Config;
 use Chrisyue\PhpM3u8\Data\Transformer\AttributeStringToArray;
 use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
-use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
+use Chrisyue\PhpM3u8\Data\Value\Byterange;
 use Chrisyue\PhpM3u8\Data\Value\Tag\Inf;
 use Chrisyue\PhpM3u8\Parser\AttributeListParser;
 
