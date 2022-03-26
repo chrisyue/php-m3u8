@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 use Chrisyue\PhpM3u8\Data\Transformer\Iso8601Transformer;
 use Chrisyue\PhpM3u8\Data\Value\Attribute\Resolution;
-use Chrisyue\PhpM3u8\Data\Value\Tag\Byterange;
+use Chrisyue\PhpM3u8\Data\Value\Byterange;
 
 $quotedStringParse = fn ($value) => trim($value, '"');
 
