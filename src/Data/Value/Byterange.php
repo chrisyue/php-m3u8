@@ -31,8 +31,8 @@ class Byterange
         }
 
         $this->offset = (int) $offset;
-        if ($this->offset < 1) {
-            throw new \InvalidArgumentException('$offset should be an integer greater than 0');
+        if ($this->offset < 0) {
+            throw new \InvalidArgumentException('$offset should be a natural number');
         }
     }
 
