@@ -42,7 +42,7 @@ class Inf
 
     public static function fromString($string)
     {
-        [$duration, $title] = explode(',', $string);
+        [$duration, $title] = array_pad(explode(',', $string),2,'');
 
         return new self($duration, $title);
     }
