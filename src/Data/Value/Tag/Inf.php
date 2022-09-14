@@ -41,10 +41,10 @@ class Inf
     }
 
     public static function fromString($string)
-    {
-        [$duration, $title] = explode(',', $string);
+    {        
+        $parts = explode(',', $string);
 
-        return new self($duration, $title);
+        return new self($parts[0], $parts[1] ?? null);
     }
 
     public function getDuration()
